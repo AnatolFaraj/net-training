@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Task.Generics 
 {
@@ -98,9 +99,22 @@ namespace Task.Generics
 		///   }
 		/// </example>
 		public static void SortTupleArray<T1, T2, T3>(this Tuple<T1, T2, T3>[] array, int sortedColumn, bool ascending) 
+			where T1 : struct
+			where T2 : struct
+			where T3 : struct
 		{
+			if (ascending)
+            {
+				array = array.OrderBy(s => array[sortedColumn].Item1).ToArray();
+			}
+			else
+            {
+				array = array.OrderByDescending(s => array[sortedColumn].Item1).ToArray();
+			}
+
+			
 			// TODO :SortTupleArray<T1, T2, T3>
-			// HINT : Add required constraints to generic types
+			
 		}
 
 	}

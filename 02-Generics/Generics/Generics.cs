@@ -66,8 +66,9 @@ namespace Task.Generics
 		/// <param name="index2">second index</param>
 		public static void SwapArrayElements<T>(this T[] array, int index1, int index2) 
 		{
-			// TODO : Implement SwapArrayElements<T>
-			throw new NotImplementedException();
+			var temp = array[index1];
+			array[index1] = array[index2];
+			array[index2] = temp;
 		}
 
 		/// <summary>

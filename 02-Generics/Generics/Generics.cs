@@ -112,13 +112,28 @@ namespace Task.Generics
 	///   This code should return the same MyService object every time:
 	///   MyService singleton = Singleton<MyService>.Instance;
 	/// </example>
-	public static class Singleton<T> 
+	public static class Singleton<T> where T : class, new()
 	{
-		// TODO : Implement generic singleton class 
-
-		public static T Instance 
+		static Singleton()
 		{
-			get { throw new NotImplementedException(); }
+
+		}
+
+		class SingletonCreator
+		{
+			static SingletonCreator()
+			{
+
+			}
+
+			internal static readonly T instance = new T();
+
+		}
+		public static T Instance
+		{
+
+			get { return SingletonCreator.instance; }
+
 		}
 	}
 

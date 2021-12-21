@@ -26,8 +26,7 @@ namespace Task.Generics
 		/// </example>
 		public static string ConvertToString<T>(this IEnumerable<T> list) 
 		{
-			// TODO : Implement ConvertToString<T>
-			throw new NotImplementedException();
+			return String.Join<T>(ListSeparator.ToString(), list);
 		}
 
 		/// <summary>

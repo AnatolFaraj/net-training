@@ -113,32 +113,32 @@ namespace Task.Generics
 			where T2 : struct
 			where T3 : struct
 		{
-			throw new Exception();
 
 			//if (ascending)
    //         {
-			//	array = array.OrderBy(s => { switch (sortedColumn)
-   //                 {
-			//			case 1: return s.Item1;
-			//			case 2: return s.Item2;
-			//			case 3: return s.Item3;
-			//			default: throw new Exception();
-   //                 }
-					
-									
-			//		}).ToArray();
+			//	Array.Sort(array);
+			//	foreach (var value in array)
+			//	{
+			//		value.ToString();
+			//	}
 			//}
 			//else
    //         {
-			//	array = array.OrderByDescending(s => array[sortedColumn].Item1).ToArray();
+			//	Array.Sort(array);
+			//	Array.Reverse(array);
+			//	foreach (var value in array)
+			//	{
+			//		value.ToString();
+			//	}
 			//}
-
 			
-			// TODO :SortTupleArray<T1, T2, T3>
-			
-		}
 
-	}
+
+
+
+        }
+
+    }
 
 	/// <summary>
 	///   Generic singleton class
@@ -243,13 +243,24 @@ namespace Task.Generics
 		///            x=> x<10
 		///       })
 		/// </example>
-		public static Predicate<T> CombinePredicates<T>(Predicate<T>[] predicates) 
+		public static Predicate<T> CombinePredicates<T>( Predicate<T>[] predicates) 
 		{
-			// TODO : Implement CombinePredicates<T>
-			throw new NotImplementedException();
+			return delegate (T item)
+			{
+				foreach (Predicate<T> predicate in predicates)
+				{
+					if (!predicate(item))
+					{
+						return false;
+					}
+				}
+				return true;
+			};
 		}
-
 	}
+	
+
+	
 
 
 }

@@ -56,8 +56,8 @@ namespace Task.Generics
 			var result = new List<T>();
 			foreach (var value in list.Split(ListSeparator))
 			{
-				var x = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(value);
-				result.Add(x);
+
+				result.Add((T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(value));
 			}
 			
 			return result;
@@ -115,7 +115,7 @@ namespace Task.Generics
 		{
 
 
-			Tuple<T1, T2, T3>[] arr2 = null; 
+			Tuple<T1, T2, T3>[] orderArray = null; 
 
 
 			if (ascending)
@@ -124,13 +124,13 @@ namespace Task.Generics
 				{
 					
 					case 0:
-						arr2 = array.OrderBy(x => x.Item1).ToArray();
+						orderArray = array.OrderBy(x => x.Item1).ToArray();
 						break;
 					case 1:
-						arr2 = array.OrderBy(x => x.Item2).ToArray();
+						orderArray = array.OrderBy(x => x.Item2).ToArray();
 						break;
                     case 2:
-						arr2 = array.OrderBy(x => x.Item3).ToArray();
+						orderArray = array.OrderBy(x => x.Item3).ToArray();
 						break;
 					
 					default: throw new IndexOutOfRangeException();
@@ -144,13 +144,13 @@ namespace Task.Generics
 				{
 
 					case 0:
-						arr2 = array.OrderByDescending(x => x.Item1).ToArray();
+						orderArray = array.OrderByDescending(x => x.Item1).ToArray();
 						break;
 					case 1:
-						arr2 = array.OrderByDescending(x => x.Item2).ToArray();
+						orderArray = array.OrderByDescending(x => x.Item2).ToArray();
 						break;
 					case 2:
-						arr2 = array.OrderByDescending(x => x.Item3).ToArray();
+						orderArray = array.OrderByDescending(x => x.Item3).ToArray();
 						break;
 					
 
@@ -160,9 +160,9 @@ namespace Task.Generics
 			}
 
 
-			for (int i = 0; i < arr2.Length; i++)
+			for (int i = 0; i < orderArray.Length; i++)
             {
-				array[i] = arr2[i];
+				array[i] = orderArray[i];
             }				
 
 
@@ -179,25 +179,18 @@ namespace Task.Generics
 	/// </example>
 	public static class Singleton<T> where T : class, new()
 	{
+		private static readonly T instance = new T();
+
 		static Singleton()
 		{
 
 		}
 
-		class SingletonCreator
-		{
-			static SingletonCreator()
-			{
-
-			}
-
-			internal static readonly T instance = new T();
-
-		}
+		
 		public static T Instance
 		{
 
-			get { return SingletonCreator.instance; }
+			get { return instance; }
 
 		}
 	}

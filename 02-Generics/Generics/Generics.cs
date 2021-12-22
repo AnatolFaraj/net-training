@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 
 namespace Task.Generics 
 {
@@ -48,9 +51,16 @@ namespace Task.Generics
 		///  </example>
 		public static IEnumerable<T> ConvertToList<T>(this string list) 
 		{
-			// TODO : Implement ConvertToList<T>
-			// HINT : Use TypeConverter.ConvertFromString method to parse string value
-			throw new NotImplementedException();
+			
+			
+			var result = new List<T>();
+			foreach (var value in list.Split(ListSeparator))
+			{
+				var x = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(value);
+				result.Add(x);
+			}
+			
+			return result;
 		}
 
 	}
@@ -103,14 +113,25 @@ namespace Task.Generics
 			where T2 : struct
 			where T3 : struct
 		{
-			if (ascending)
-            {
-				array = array.OrderBy(s => array[sortedColumn].Item1).ToArray();
-			}
-			else
-            {
-				array = array.OrderByDescending(s => array[sortedColumn].Item1).ToArray();
-			}
+			throw new Exception();
+
+			//if (ascending)
+   //         {
+			//	array = array.OrderBy(s => { switch (sortedColumn)
+   //                 {
+			//			case 1: return s.Item1;
+			//			case 2: return s.Item2;
+			//			case 3: return s.Item3;
+			//			default: throw new Exception();
+   //                 }
+					
+									
+			//		}).ToArray();
+			//}
+			//else
+   //         {
+			//	array = array.OrderByDescending(s => array[sortedColumn].Item1).ToArray();
+			//}
 
 			
 			// TODO :SortTupleArray<T1, T2, T3>
@@ -175,8 +196,27 @@ namespace Task.Generics
 		/// </example>
 		public static T TimeoutSafeInvoke<T>(this Func<T> function) 
 		{
-			// TODO : Implement TimeoutSafeInvoke<T>
-			throw new NotImplementedException();
+			int x = 0;
+			while (true)
+            {
+				try
+				{
+					x++;
+					return function.Invoke();
+					
+				}
+				catch (WebException e)
+				{
+					if (x < 3)
+						Trace.TraceError(e.ToString());
+					else
+						throw;
+
+
+				}
+			}
+			
+			
 		}
 
 

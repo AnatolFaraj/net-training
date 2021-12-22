@@ -114,26 +114,56 @@ namespace Task.Generics
 			where T3 : struct
 		{
 
-			//if (ascending)
-   //         {
-			//	Array.Sort(array);
-			//	foreach (var value in array)
-			//	{
-			//		value.ToString();
-			//	}
-			//}
-			//else
-   //         {
-			//	Array.Sort(array);
-			//	Array.Reverse(array);
-			//	foreach (var value in array)
-			//	{
-			//		value.ToString();
-			//	}
-			//}
-			
+
+			Tuple<T1, T2, T3>[] arr2 = null; 
 
 
+			if (ascending)
+            {
+				switch (sortedColumn)
+				{
+					
+					case 0:
+						arr2 = array.OrderBy(x => x.Item1).ToArray();
+						break;
+					case 1:
+						arr2 = array.OrderBy(x => x.Item2).ToArray();
+						break;
+                    case 2:
+						arr2 = array.OrderBy(x => x.Item3).ToArray();
+						break;
+					
+					default: throw new IndexOutOfRangeException();
+				}
+					
+
+			}
+            else
+            {
+				switch (sortedColumn)
+				{
+
+					case 0:
+						arr2 = array.OrderByDescending(x => x.Item1).ToArray();
+						break;
+					case 1:
+						arr2 = array.OrderByDescending(x => x.Item2).ToArray();
+						break;
+					case 2:
+						arr2 = array.OrderByDescending(x => x.Item3).ToArray();
+						break;
+					
+
+
+					default: throw new IndexOutOfRangeException();
+				}
+			}
+
+
+			for (int i = 0; i < arr2.Length; i++)
+            {
+				array[i] = arr2[i];
+            }				
 
 
         }

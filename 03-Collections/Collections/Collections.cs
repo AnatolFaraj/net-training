@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Collections;
 
-namespace Collections.Tasks {
+namespace Collections.Tasks 
+{
 
     /// <summary>
     ///  Tree node item 
     /// </summary>
     /// <typeparam name="T">the type of tree node data</typeparam>
-    public interface ITreeNode<T> {
+    public interface ITreeNode<T> 
+    {
         T Data { get; set; }                             // Custom data
         IEnumerable<ITreeNode<T>> Children { get; set; } // List of childrens
     }
 
 
-    public class Task {
+    public class Task 
+    {
 
         /// <summary> Generate the Fibonacci sequence f(x) = f(x-1)+f(x-2) </summary>
         /// <param name="count">the size of a required sequence</param>
@@ -28,9 +32,36 @@ namespace Collections.Tasks {
         ///   2 => { 1, 1 }
         ///   12 => { 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144 }
         /// </example>
-        public static IEnumerable<int> GetFibonacciSequence(int count) {
-            // TODO : Implement Fibonacci sequence generator
-            throw new NotImplementedException();
+        public static IEnumerable<int> GetFibonacciSequence(int count) 
+        {
+
+            int [] sequence = new int [count + 1];
+
+            sequence[0] = 0;
+            sequence[1] = 1;
+
+            if (count < 0)
+            {
+                throw new ArgumentException();
+            }
+            else
+            {
+                for (int i = 2; i < count + 1; i++)
+                {
+                    sequence[i] = sequence[i - 2] + sequence[i - 1];
+
+                }
+            }
+
+            ArrayList sequence2 = new ArrayList(sequence);
+            sequence2[0] = null;
+            
+            
+
+            return (IEnumerable<int>)sequence2;
+
+            
+
         }
 
         /// <summary>
@@ -74,7 +105,8 @@ namespace Collections.Tasks {
         ///                   
         ///    result = { 1, 2, 3, 4, 5, 6, 7, 8 } 
         /// </example>
-        public static IEnumerable<T> DepthTraversalTree<T>(ITreeNode<T> root) {
+        public static IEnumerable<T> DepthTraversalTree<T>(ITreeNode<T> root) 
+        {
             // TODO : Implement the tree depth traversal algorithm
             throw new NotImplementedException(); 
         }

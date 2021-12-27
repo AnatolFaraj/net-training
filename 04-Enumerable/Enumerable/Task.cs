@@ -196,9 +196,36 @@ namespace EnumerableTask
         ///   { "a", "b", "c", null } => { "a", "b","b", "c","c","c", null,null,null,null }
         ///   { 1,2,3,4,5} => { 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 }
         /// </example>
-        public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data) {
-            // TODO : Implement PropagateItemsByPositionIndex
-            throw new NotImplementedException();
+        public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data) 
+        {
+
+            var dataList = new List<T>(data);
+            var returnList = new List<T>();
+
+            var counter = 0;
+            int increment = 1;
+
+            if (dataList == null)
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            if (dataList.Count == 1)
+            {
+                return new List<T>(dataList);
+
+            }
+
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    dataList.Add(dataList[i]);
+                }
+
+            }
+
+            return returnList;
         }
 
         /// <summary>Finds all used char in string sequence</summary>

@@ -91,8 +91,9 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<long> GetSquareSequence(IEnumerable<int> data) 
         {
-            // TODO : Implement GetSquareSequence
+            //TODO: this
             throw new NotImplementedException();
+
         }
 
         /// <summary>Transforms int sequence to its moving sum sequence, 
@@ -193,7 +194,7 @@ namespace EnumerableTask
 
 
             }
-
+            //TODO: this
             return listOfStrings;
         }
 

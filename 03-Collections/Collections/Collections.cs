@@ -80,10 +80,34 @@ namespace Collections.Tasks
         ///  "TextReader is the abstract base class of StreamReader and StringReader, which ..." => 
         ///   {"TextReader","is","the","abstract","base","class","of","StreamReader","and","StringReader","which",...}
         /// </example>
-        public static IEnumerable<string> Tokenize(TextReader reader) {
+        public static IEnumerable<string> Tokenize(TextReader reader)
+        {
             char[] delimeters = new[] { ',', ' ', '.', '\t', '\n' };
-            // TODO : Implement the tokenizer
-            throw new NotImplementedException();
+
+
+            if (reader is null)
+            {
+                throw new ArgumentNullException();
+            }
+
+
+            string strings;
+            var result = new List<string>();
+
+            while ((strings = reader.ReadLine()) != null)
+            {
+                foreach (var value in strings.Split(delimeters))
+                {
+
+                    result.Add(value);
+                    if (String.IsNullOrEmpty(value))
+                    {
+                        result.Remove(value);
+                    }
+                }
+            }
+
+            return result;
         }
 
 

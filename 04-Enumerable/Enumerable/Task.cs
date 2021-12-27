@@ -21,8 +21,25 @@ namespace EnumerableTask {
         ///    { "a", "A", "", null } => { "A", "A", "", null }
         /// </example>
         public IEnumerable<string> GetUppercaseStrings(IEnumerable<string> data) {
-            // TODO : Implement GetUppercaseStrings
-            throw new NotImplementedException();
+
+            var upperstrings = new List<string>();
+
+
+            foreach (var item in data)
+            {
+                if (String.IsNullOrEmpty(item) || String.IsNullOrWhiteSpace(item))
+                {
+                    upperstrings.Add(item);
+                }
+                else
+                {
+                    upperstrings.Add(item.ToUpper());
+                }
+
+
+
+            }
+            return upperstrings;
         }
 
         /// <summary> Transforms an each string from sequence to its length</summary>

@@ -147,8 +147,54 @@ namespace EnumerableTask
         ///  { "a","b","c" }, prefix=null => exception
         /// </example>
         public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix) {
-            // TODO : Implement GetPrefixItems
-            throw new NotImplementedException();
+
+            var listOfStrings = new List<string>();
+
+            if (prefix == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            //if (prefix.Equals(string.Empty))
+            //{
+            // foreach (var item in data)
+            // {
+            // listOfStrings.Add(item);
+            // listOfStrings.Remove(string.Empty);
+            // listOfStrings.Remove(null);
+            // }
+
+
+            //}
+
+
+
+            foreach (var item in data)
+            {
+                if (String.IsNullOrEmpty(prefix))
+                {
+                    listOfStrings.Add(item);
+                    listOfStrings.Remove(string.Empty);
+                }
+                else if (item == null)
+                {
+                    continue;
+                }
+                else if (item.StartsWith(prefix.ToUpper()) || item.StartsWith(prefix.ToLower()))
+                {
+
+                    listOfStrings.Add(item);
+
+                }
+                else if (!item.StartsWith(prefix.ToUpper()) || !item.StartsWith(prefix.ToLower()))
+                {
+                    return Enumerable.Empty<string>();
+                }
+
+
+            }
+
+            return listOfStrings;
         }
 
         /// <summary> Returns every second item from source sequence</summary>

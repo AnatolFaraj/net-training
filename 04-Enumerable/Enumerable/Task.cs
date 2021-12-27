@@ -246,33 +246,33 @@ namespace EnumerableTask
         public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data) 
         {
 
-            var dataList = new List<T>(data);
-            var returnList = new List<T>();
+            //var dataList = new List<T>(data);
+            //var returnList = new List<T>();
 
-            var counter = 0;
-            int increment = 1;
+            //var counter = 0;
+            //int increment = 1;
 
-            if (dataList == null)
-            {
-                return Enumerable.Empty<T>();
-            }
+            //if (dataList == null)
+            //{
+            //    return Enumerable.Empty<T>();
+            //}
 
-            if (dataList.Count == 1)
-            {
-                return new List<T>(dataList);
+            //if (dataList.Count == 1)
+            //{
+            //    return new List<T>(dataList);
 
-            }
+            //}
 
-            for (int i = 0; i < dataList.Count; i++)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    dataList.Add(dataList[i]);
-                }
+            //for (int i = 0; i < dataList.Count -1; i++)
+            //{
+            //    for (int j = i+1; j < i; j++)
+            //    {
+            //        dataList.Add(dataList[i]);
+            //    }
 
-            }
+            //}
 
-            return returnList;
+            throw new NotImplementedException();
         }
 
         /// <summary>Finds all used char in string sequence</summary>
@@ -287,9 +287,40 @@ namespace EnumerableTask
         ///   { "", null } => { }
         ///   { } => { }
         /// </example>
-        public IEnumerable<char> GetUsedChars(IEnumerable<string> data) {
-            // TODO : Implement GetUsedChars
-            throw new NotImplementedException();
+        public IEnumerable<char> GetUsedChars(IEnumerable<string> data) 
+        {
+            var listOfStrings = new List<string>(data);
+            char[] arrayOfChars;
+            HashSet<char> setOfChars = new HashSet<char>();
+
+            if (listOfStrings.Count == 0)
+            {
+                return Enumerable.Empty<char>();
+            }
+
+            foreach (var item in listOfStrings)
+            {
+                if (String.IsNullOrEmpty(item))
+                {
+                    return Enumerable.Empty<char>();
+                }
+                
+                arrayOfChars = item.ToCharArray();
+
+                foreach (char ch in arrayOfChars)
+                {
+                    if (ch.Equals(string.Empty))
+                    {
+                        return new char[0];
+                    }
+
+                    setOfChars.Add(ch);
+                }
+
+            }
+
+            return setOfChars;
+
         }
 
 

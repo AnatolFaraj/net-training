@@ -378,9 +378,35 @@ namespace EnumerableTask
         ///   { 1,2,3,4,5,6,7,8,9,10 } => { 10, 9, 8 }
         ///   { 10, 10, 10, 10 } => { 10, 10, 10 }
         /// </example>
-        public IEnumerable<int> Get3TopItems(IEnumerable<int> data) {
-            // TODO : Implement Get3TopItems
-            throw new NotImplementedException();
+        public IEnumerable<int> Get3TopItems(IEnumerable<int> data) 
+        {
+            var listOfInts = new List<int>(data);
+
+            var returnList = new List<int>();
+
+            if (listOfInts.Count == 0)
+            {
+                return Enumerable.Empty<int>();
+            }
+            else if (listOfInts.Count == 2)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    returnList.Add(listOfInts.Max());
+                    listOfInts.Remove(listOfInts.Max());
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    returnList.Add(listOfInts.Max());
+                    listOfInts.Remove(listOfInts.Max());
+                }
+            }
+            
+
+            return returnList;
         }
 
         /// <summary> Calculates the count of numbers that are greater then 10</summary>

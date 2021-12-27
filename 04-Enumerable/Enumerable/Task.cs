@@ -6,9 +6,11 @@ using System.Reflection;
 using System.IO;
 using System.Diagnostics;
 
-namespace EnumerableTask {
+namespace EnumerableTask 
+{
 
-    public class Task {
+    public class Task 
+    {
 
         /// <summary> Transforms all strings to uppercase</summary>
         /// <param name="data">source string sequence</param>
@@ -20,7 +22,8 @@ namespace EnumerableTask {
         ///    { "A", "B", "C" } => { "A", "B", "C" }
         ///    { "a", "A", "", null } => { "A", "A", "", null }
         /// </example>
-        public IEnumerable<string> GetUppercaseStrings(IEnumerable<string> data) {
+        public IEnumerable<string> GetUppercaseStrings(IEnumerable<string> data) 
+        {
 
             var upperstrings = new List<string>();
 
@@ -52,7 +55,8 @@ namespace EnumerableTask {
         ///   {"a","aa","aaa" } => { 1, 2, 3 }
         ///   {"aa","bb","cc", "", "  ", null } => { 2, 2, 2, 0, 2, 0 }
         /// </example>
-        public IEnumerable<int> GetStringsLength(IEnumerable<string> data) {
+        public IEnumerable<int> GetStringsLength(IEnumerable<string> data) 
+        {
 
             var listOfInts = new List<int>();
             foreach (var item in data)
@@ -85,7 +89,8 @@ namespace EnumerableTask {
         ///   { 1, 2, 3, 4, 5 } => { 1, 4, 9, 16, 25 }
         ///   { -1, -2, -3, -4, -5 } => { 1, 4, 9, 16, 25 }
         /// </example>
-        public IEnumerable<long> GetSquareSequence(IEnumerable<int> data) {
+        public IEnumerable<long> GetSquareSequence(IEnumerable<int> data) 
+        {
             // TODO : Implement GetSquareSequence
             throw new NotImplementedException();
         }
@@ -105,7 +110,8 @@ namespace EnumerableTask {
         ///   { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } => { 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 }
         ///   { 1, -1, 1, -1, -1 } => { 1, 0, 1, 0, 1 }
         /// </example>
-        public IEnumerable<long> GetMovingSumSequence(IEnumerable<int> data) {
+        public IEnumerable<long> GetMovingSumSequence(IEnumerable<int> data) 
+        {
 
             var listOfLongs = new List<long>();
 

@@ -106,8 +106,22 @@ namespace EnumerableTask {
         ///   { 1, -1, 1, -1, -1 } => { 1, 0, 1, 0, 1 }
         /// </example>
         public IEnumerable<long> GetMovingSumSequence(IEnumerable<int> data) {
-            // TODO : Implement GetMovingSumSequence
-            throw new NotImplementedException();
+
+            var listOfLongs = new List<long>();
+
+            foreach (var item in data)
+            {
+                long converted = Convert.ToInt64(item);
+                listOfLongs.Add(converted);
+
+            }
+
+            for (var i = 1; i < listOfLongs.Count; i++)
+            {
+                listOfLongs[i] = listOfLongs[i - 1] + listOfLongs[i];
+            }
+
+            return listOfLongs;
         }
 
 

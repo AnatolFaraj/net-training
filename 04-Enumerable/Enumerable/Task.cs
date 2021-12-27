@@ -160,9 +160,27 @@ namespace EnumerableTask
         ///  { "a","b","c" , null } => { "b", null }
         ///  { "a" } => { }
         /// </example>
-        public IEnumerable<T> GetEvenItems<T>(IEnumerable<T> data) {
-            // TODO : Implement GetEvenItems
-            throw new NotImplementedException();
+        public IEnumerable<T> GetEvenItems<T>(IEnumerable<T> data) 
+        {
+
+            var dataList = new List<T>(data);
+            var returnList = new List<T>();
+
+            if (dataList.Count < 2)
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                if (i % 2 != 0)
+                {
+                    returnList.Add(dataList[i]);
+                }
+            }
+
+
+            return returnList;
         }
 
         /// <summary> Propagate every item in sequence its position times</summary>

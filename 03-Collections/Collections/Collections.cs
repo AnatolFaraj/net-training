@@ -235,8 +235,14 @@ namespace Collections.Tasks
         ///   Person cached = cache.GetOrBuildValue(10, ()=>LoadPersonById(10) );  // should get a Person from the cache
         /// </example>
         public static TValue GetOrBuildValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> builder) {
-            // TODO : Implement GetOrBuildValue method for cache
-            throw new NotImplementedException();
+
+            if (!dictionary.ContainsKey(key))
+            {
+                dictionary[key] = builder.Invoke();
+            }
+
+
+            return dictionary[key];
         }
 
     }

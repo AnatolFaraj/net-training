@@ -336,10 +336,24 @@ namespace EnumerableTask
         ///   { "a", "b", "c", null, ""} => "a,b,c,null,"
         ///   { "", "" } => ","
         /// </example>
-        public string GetStringOfSequence<T>(IEnumerable<T> data) {
-            // TODO : Implement GetStringOfSequence
-            throw new NotImplementedException();
+        public string GetStringOfSequence<T>(IEnumerable<T> data) 
+        {
+            var listOfItems = new List<T>(data);
+            string output = null;
+
+            foreach (var item in listOfItems)
+            {
+
+                if (String.IsNullOrEmpty(item.ToString()))
+                {
+
+                }
+            }    
+
+            return String.Join<T>(','.ToString(), data);
         }
+
+        
 
         /// <summary> Finds the 3 largest numbers from a sequence</summary>
         /// <param name="data">source sequence</param>

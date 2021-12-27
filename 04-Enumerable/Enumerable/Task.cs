@@ -420,9 +420,26 @@ namespace EnumerableTask
         ///   { 1, 2, 3, 11 } => 1
         ///   { 1, 20, 30, 40 } => 3
         /// </example>
-        public int GetCountOfGreaterThen10(IEnumerable<int> data) {
-            // TODO : Implement GetCountOfGreaterThen10
-            throw new NotImplementedException();
+        public int GetCountOfGreaterThen10(IEnumerable<int> data) 
+        {
+            var dataList = new List<int>(data);
+
+            int count = 0;
+
+            if (dataList.Count == null)
+            {
+                return count;
+            }
+
+            foreach (var item in dataList)
+            {
+                if (item > 10)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
 

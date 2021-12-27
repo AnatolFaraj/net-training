@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Collections;
+using System.Linq;
 
 namespace Collections.Tasks 
 {
@@ -14,6 +15,8 @@ namespace Collections.Tasks
     {
         T Data { get; set; }                             // Custom data
         IEnumerable<ITreeNode<T>> Children { get; set; } // List of childrens
+
+        
     }
 
 
@@ -35,30 +38,33 @@ namespace Collections.Tasks
         public static IEnumerable<int> GetFibonacciSequence(int count) 
         {
 
-            int [] sequence = new int [count + 1];
+            int [] sequence = new int [count];
 
-            sequence[0] = 0;
-            sequence[1] = 1;
+            if (count == 0)
+            {
+                
+                sequence = null;
+                
+            }
+            
 
             if (count < 0)
             {
                 throw new ArgumentException();
             }
-            else
+            else if (count !=0 )
             {
-                for (int i = 2; i < count + 1; i++)
+                sequence[0] = 1;
+                sequence[1] = 1;
+
+                for (int i = 2; i < count; i++)
                 {
                     sequence[i] = sequence[i - 2] + sequence[i - 1];
 
                 }
             }
 
-            ArrayList sequence2 = new ArrayList(sequence);
-            sequence2[0] = null;
-            
-            
-
-            return (IEnumerable<int>)sequence2;
+            return sequence;
 
             
 
@@ -107,8 +113,31 @@ namespace Collections.Tasks
         /// </example>
         public static IEnumerable<T> DepthTraversalTree<T>(ITreeNode<T> root) 
         {
-            // TODO : Implement the tree depth traversal algorithm
-            throw new NotImplementedException(); 
+            var visited = new HashSet<ITreeNode<T>>();
+            var stack = new Stack<ITreeNode<T>>();
+
+            stack.Push(root);
+
+            while(stack.Count != 0)
+            {
+                var current = stack.Pop();
+                
+
+                if(!visited.Add(current))
+                    continue;
+
+                yield return (T)(IEnumerable<T>)current;
+
+                var neighbors = root.Children.Where(n => !visited.Contains(n));
+
+                foreach (var neighbor in neighbors)
+                {
+                    stack.Push(neighbor);
+                }
+            }
+
+            
+
         }
 
         /// <summary>

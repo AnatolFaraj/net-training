@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using System.Diagnostics;
+using System.Collections;
 
 namespace EnumerableTask 
 {
@@ -339,18 +340,28 @@ namespace EnumerableTask
         public string GetStringOfSequence<T>(IEnumerable<T> data) 
         {
             var listOfItems = new List<T>(data);
-            string output = null;
+            
+            string nullString = "null";
+
+            if (listOfItems == null)
+            {
+                return "";
+            }
+
+
+            var output = String.Join<T>(','.ToString(), listOfItems);
 
             foreach (var item in listOfItems)
             {
-
-                if (String.IsNullOrEmpty(item.ToString()))
+                if (item == null)
                 {
 
-                }
-            }    
+                    output = String.Concat(String.Join<T>(','.ToString(), listOfItems), nullString);
 
-            return String.Join<T>(','.ToString(), data);
+                }
+            }
+            
+            return output;
         }
 
         

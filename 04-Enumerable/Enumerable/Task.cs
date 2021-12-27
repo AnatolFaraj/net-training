@@ -53,8 +53,26 @@ namespace EnumerableTask {
         ///   {"aa","bb","cc", "", "  ", null } => { 2, 2, 2, 0, 2, 0 }
         /// </example>
         public IEnumerable<int> GetStringsLength(IEnumerable<string> data) {
-            // TODO : Implement GetStringsLength
-            throw new NotImplementedException();
+
+            var listOfInts = new List<int>();
+            foreach (var item in data)
+            {
+                if (String.IsNullOrEmpty(item))
+                {
+                    listOfInts.Add(0);
+                }
+                else if (item == " " || item == " " || item == " ")
+                {
+                    listOfInts.Add(item.Length);
+                }
+                else
+                {
+                    listOfInts.Add(item.Length);
+                }
+
+            }
+
+            return listOfInts;
         }
 
         /// <summary>Transforms int sequence to its square sequence, f(x) = x * x </summary>

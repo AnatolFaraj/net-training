@@ -6,6 +6,7 @@ using System.Reflection;
 using System.IO;
 using System.Diagnostics;
 using System.Collections;
+using System.Globalization;
 
 namespace EnumerableTask 
 {
@@ -453,10 +454,45 @@ namespace EnumerableTask
         ///   { "a", "IT IS FIRST", "first item", "I am really first!" } => "IT IS FIRST"
         ///   { } => null
         /// </example>
-        public string GetFirstContainsFirst(IEnumerable<string> data) {
-            // TODO : Implement GetFirstContainsFirst
+        public string GetFirstContainsFirst(IEnumerable<string> data) 
+        {
+            //var dataList = new List<string>(data);
+            //var returnList = new List<string>();
+            //var wordForSearch = "first";
+
+
+
+            //foreach (var item in dataList)
+            //{
+
+            //    if (item == null)
+            //    {
+            //        continue;
+            //    }
+            //    else if (item.IndexOf(wordForSearch, StringComparison.OrdinalIgnoreCase) >= 1)
+            //    {
+            //        returnList.Add(item);
+
+            //    }
+            //    else if (dataList == null)
+            //    {
+            //        return null;
+            //    }
+            //    else
+            //    {
+            //        return null;
+            //    }
+
+            //}
+
+            //return returnList[0];
             throw new NotImplementedException();
         }
+        
+        
+           
+        
+        
 
         /// <summary> Counts the number of unique strings with length=3 </summary>
         /// <param name="data">source sequence</param>
@@ -469,9 +505,31 @@ namespace EnumerableTask
         ///   { "aaa", "aaa", "aaa", "bbb" } => 2   ("aaa", "bbb") 
         ///   { } => 0
         /// </example>
-        public int GetCountOfStringsWithLengthEqualsTo3(IEnumerable<string> data) {
-            // TODO : Implement GetCountOfStringsWithLengthEqualsTo3
-            throw new NotImplementedException();
+        public int GetCountOfStringsWithLengthEqualsTo3(IEnumerable<string> data) 
+        {
+            var dataList = new List<string>(data);
+            var dataSet = new HashSet<string>();
+            
+
+            if (dataList == null)
+            {
+                return 0;
+            }
+            foreach (var item in dataList)
+            {
+                if (item == null)
+                {
+                    continue;
+                }
+
+                if(item.Length == 3 && item != null)
+                {
+                    dataSet.Add(item);
+                    
+                }
+            }
+
+            return dataSet.Count;
         }
 
         /// <summary> Counts the number of each strings in sequence </summary>

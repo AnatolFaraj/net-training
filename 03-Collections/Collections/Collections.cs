@@ -135,30 +135,50 @@ namespace Collections.Tasks
         /// </example>
         public static IEnumerable<T> DepthTraversalTree<T>(ITreeNode<T> root) 
         {
-            var visited = new HashSet<ITreeNode<T>>();
-            var stack = new Stack<ITreeNode<T>>();
+            //var visited = new HashSet<ITreeNode<T>>();
+            //var stack = new Stack<ITreeNode<T>>();
 
-            stack.Push(root);
+            //stack.Push(root);
 
-            while(stack.Count != 0)
+            //while(stack.Count != 0)
+            //{
+            //    var current = stack.Pop();
+
+
+            //    if(!visited.Add(current))
+            //        continue;
+
+            //    yield return (T)(IEnumerable<T>)current;
+
+            //    var neighbors = root.Children.Where(n => !visited.Contains(n));
+
+            //    foreach (var neighbor in neighbors)
+            //    {
+            //        stack.Push(neighbor);
+            //    }
+            //}
+
+           
+
+            var result = new List<T>();
+            result.Add(root.Data);
+
+            if (root.Children != null && root.Children.Any())
+            foreach (var item in root.Children )
             {
-                var current = stack.Pop();
-                
+                var itemReuslt = DepthTraversalTree(item);
 
-                if(!visited.Add(current))
-                    continue;
-
-                yield return (T)(IEnumerable<T>)current;
-
-                var neighbors = root.Children.Where(n => !visited.Contains(n));
-
-                foreach (var neighbor in neighbors)
-                {
-                    stack.Push(neighbor);
-                }
+                result.AddRange(itemReuslt);
             }
 
-            
+                
+
+                
+
+            return result;
+
+
+
 
         }
 
@@ -210,10 +230,18 @@ namespace Collections.Tasks
         /// </example>
         public static IEnumerable<T[]> GenerateAllPermutations<T>(T[] source, int count) 
         {
-            // TODO : Implement GenerateAllPermutations method
-            throw new NotImplementedException();
+            
+            return GetPermutations(source, count).Select(x => x.ToArray());
         }
+        static IEnumerable<IEnumerable<T>>
+            GetPermutations<T>(IEnumerable<T> list, int length)
+        {
+            if (length == 1) return list.Select(t => new T[] { t });
 
+            return GetPermutations(list, length - 1)
+                .SelectMany(t => list.Where(e => !t.Contains(e)),
+                    (t1, t2) => t1.Concat(new T[] { t2 }));
+        }
     }
 
     public static class DictionaryExtentions {

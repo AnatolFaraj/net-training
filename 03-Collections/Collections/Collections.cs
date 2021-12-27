@@ -183,7 +183,8 @@ namespace Collections.Tasks
         ///                   
         ///    result = { 1, 2, 3, 4, 5, 6, 7, 8 } 
         /// </example>
-        public static IEnumerable<T> WidthTraversalTree<T>(ITreeNode<T> root) {
+        public static IEnumerable<T> WidthTraversalTree<T>(ITreeNode<T> root) 
+        {
             // TODO : Implement the tree width traversal algorithm
             throw new NotImplementedException();
         }
@@ -207,7 +208,8 @@ namespace Collections.Tasks
         ///   source = { 1,2,3,4 }, count=4 => {{1,2,3,4}}
         ///   source = { 1,2,3,4 }, count=5 => ArgumentOutOfRangeException
         /// </example>
-        public static IEnumerable<T[]> GenerateAllPermutations<T>(T[] source, int count) {
+        public static IEnumerable<T[]> GenerateAllPermutations<T>(T[] source, int count) 
+        {
             // TODO : Implement GenerateAllPermutations method
             throw new NotImplementedException();
         }
@@ -234,7 +236,8 @@ namespace Collections.Tasks
         ///   Person value = cache.GetOrBuildValue(10, ()=>LoadPersonById(10) );  // should return a loaded Person and put it into the cache
         ///   Person cached = cache.GetOrBuildValue(10, ()=>LoadPersonById(10) );  // should get a Person from the cache
         /// </example>
-        public static TValue GetOrBuildValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> builder) {
+        public static TValue GetOrBuildValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> builder) 
+        {
 
             if (!dictionary.ContainsKey(key))
             {

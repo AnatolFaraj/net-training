@@ -543,9 +543,24 @@ namespace EnumerableTask
         ///   { "aaa", "aaa", "aaa" } =>  { ("aaa", 3) } 
         ///   { } => { }
         /// </example>
-        public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) {
-            // TODO : Implement GetCountOfStrings
-            throw new NotImplementedException();
+        public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) 
+        {
+            var dataList = new List<string>(data);
+            var tupleSet = new HashSet<Tuple<string, int>>();
+            
+            
+            if (dataList == null)
+            {
+                return null;
+            }
+            foreach (var item in dataList)
+            {
+                
+                int freq = dataList.Count(f => (f == item));
+                tupleSet.Add(Tuple.Create(item, freq));
+            }
+
+            return tupleSet;
         }
 
         /// <summary> Counts the number of strings with max length in sequence </summary>

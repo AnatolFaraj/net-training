@@ -247,34 +247,37 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data) 
         {
-
             //var dataList = new List<T>(data);
-            //var returnList = new List<T>();
+            //int itemIndex = 0;
+            //var newList = new List<T>();
+            //IEnumerable<T> newEnumerable = new List<T>();
 
-            //var counter = 0;
-            //int increment = 1;
+            //if (dataList.Count == 1)
+            //{
+            //    return dataList;
+            //}
 
-            //if (dataList == null)
+            //if (data == null)
             //{
             //    return Enumerable.Empty<T>();
             //}
 
-            //if (dataList.Count == 1)
+            //foreach (var item in dataList)
             //{
-            //    return new List<T>(dataList);
-
+            //    itemIndex = dataList.IndexOf(item);
+            //    newEnumerable = Enumerable.Repeat(item, itemIndex);
             //}
 
-            //for (int i = 0; i < dataList.Count -1; i++)
-            //{
-            //    for (int j = i+1; j < i; j++)
-            //    {
-            //        dataList.Add(dataList[i]);
-            //    }
 
-            //}
+
 
             throw new NotImplementedException();
+
+
+
+
+
+            //return newEnumerable;
         }
 
         /// <summary>Finds all used char in string sequence</summary>
@@ -694,9 +697,19 @@ namespace EnumerableTask
         ///  {"c","b","a"} => {"a","b","c"}
         ///  {"c","cc","b","bb","a,"aa"} => {"a","b","c","aa","bb","cc"}
         /// </example>
-        public IEnumerable<string> SortStringsByLengthAndAlphabet(IEnumerable<string> data) {
-            // TODO : Implement SortStringsByLengthAndAlphabet
-            throw new NotImplementedException();
+        public IEnumerable<string> SortStringsByLengthAndAlphabet(IEnumerable<string> data) 
+        {
+            if (!data.Any())
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            var sortedStrings = data.OrderBy(w => w.Length)
+                                    .ThenBy(s => s);
+
+            return sortedStrings;
+
+
         }
 
         /// <summary> Finds all missing digits </summary>

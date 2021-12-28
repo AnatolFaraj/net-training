@@ -158,29 +158,24 @@ namespace Collections.Tasks
             //    }
             //}
 
-           
+
 
             var result = new List<T>();
             result.Add(root.Data);
 
             if (root.Children != null && root.Children.Any())
-            foreach (var item in root.Children )
-            {
-                var itemReuslt = DepthTraversalTree(item);
+                foreach (var item in root.Children)
+                {
+                    var itemReuslt = DepthTraversalTree(item);
 
-                result.AddRange(itemReuslt);
-            }
-
-                
-
-                
+                    result.AddRange(itemReuslt);
+                }
 
             return result;
 
-
-
-
         }
+
+        
 
         /// <summary>
         ///   Traverses a tree using the width-first strategy

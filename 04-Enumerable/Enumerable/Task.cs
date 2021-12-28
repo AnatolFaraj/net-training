@@ -577,35 +577,26 @@ namespace EnumerableTask
         /// </example>
         public int GetCountOfStringsWithMaxLength(IEnumerable<string> data) 
         {
-            var dataList = new List<string>(data);
-            int count = 0;
-
-            if (dataList is null)
+            
+            if (!data.Any())
             {
                 return 0;
             }
-
             
+            string longest = data.OrderByDescending(l => l?.Length).First();
+            int count = data.Count(c => c?.Length == longest.Length);
+            int countNulls = data.Count(c => c == null);
 
-
-            string longest = dataList.OrderByDescending(l => l.Length).First();
-
-            
-
-            foreach (var item in dataList)
+            if (String.IsNullOrEmpty(longest))
             {
-
-                if (String.IsNullOrEmpty(item))
-                {
-                    
-                }
-                if (item.Length == longest.Length)
-                {
-                    count++;
-                }
+                return count + countNulls;
             }
 
+            
+
             return count;
+
+
         }
 
 

@@ -16,8 +16,18 @@ namespace LinqToXml
         /// <returns>Xml representation (refer to CreateHierarchyResultFile.xml in Resources)</returns>
         public static string CreateHierarchy(string xmlRepresentation)
         {
-            throw new NotImplementedException();
-        }
+            XDocument xdoc = XDocument.Load(xmlRepresentation);
+            XElement root = xdoc.Element("Root");
+
+            foreach (XElement element in root.Elements("Data").Elements("Category"))
+            {
+                element.Remove();
+            }
+
+
+
+
+    }
 
         /// <summary>
         /// Get list of orders numbers (where shipping state is NY) from xml representation

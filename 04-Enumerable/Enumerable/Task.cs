@@ -247,7 +247,7 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data) 
         {
-            //var dataList = new List<T>(data);
+            var dataList = new List<T>(data);
             //int itemIndex = 0;
             //var newList = new List<T>();
             //IEnumerable<T> newEnumerable = new List<T>();
@@ -262,6 +262,7 @@ namespace EnumerableTask
             //    return Enumerable.Empty<T>();
             //}
 
+            //var listOfPropagations = data.Where((item, index) => Enumerable.Repeat(item, index));
             //foreach (var item in dataList)
             //{
             //    itemIndex = dataList.IndexOf(item);
@@ -722,9 +723,33 @@ namespace EnumerableTask
         ///   {"aaa","a1","b","c2","d","e3","f01234"} => {'5','6','7','8','9'}
         ///   {"a","b","c","9876543210"} => {}
         /// </example>
-        public IEnumerable<char> GetMissingDigits(IEnumerable<string> data) {
-            // TODO : Implement GetMissingDigits
-            throw new NotImplementedException();
+        public IEnumerable<char> GetMissingDigits(IEnumerable<string> data) 
+        {
+            var dataList = new List<string>(data);
+
+            char[] allDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            
+
+            string b = string.Empty;
+
+            
+
+            foreach (var item in dataList)
+            {
+                for (int i = 0; i < item.Length; i++)
+                {
+                    if (Char.IsDigit(item[i]))
+                    {
+                        b += item[i];
+                    }
+                }
+            }
+
+            List<char> returnList = new List<char>(allDigits.Except(b));
+            
+
+            return returnList;
+            
         }
 
 

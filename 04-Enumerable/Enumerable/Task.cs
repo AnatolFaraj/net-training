@@ -393,22 +393,17 @@ namespace EnumerableTask
         /// </example>
         public int GetCountOfGreaterThen10(IEnumerable<int> data) 
         {
-            var dataList = new List<int>(data);
 
             int count = 0;
 
-            if (dataList.Count == null)
+            if (!data.Any())
             {
                 return count;
             }
 
-            foreach (var item in dataList)
-            {
-                if (item > 10)
-                {
-                    count++;
-                }
-            }
+            count += (from item in data
+                      where item > 10
+                      select item).Count();
 
             return count;
         }
@@ -481,25 +476,17 @@ namespace EnumerableTask
             var dataSet = new HashSet<string>();
             
 
-            if (dataList == null)
+            if (!data.Any())
             {
                 return 0;
             }
-            foreach (var item in dataList)
-            {
-                if (item == null)
-                {
-                    continue;
-                }
 
-                if(item.Length == 3 && item != null)
-                {
-                    dataSet.Add(item);
-                    
-                }
-            }
+            var set = from item in data
+                      where item?.Length == 3 
+                      select item;
+            
 
-            return dataSet.Count;
+            return set.Distinct().Count();
         }
 
         /// <summary> Counts the number of each strings in sequence </summary>

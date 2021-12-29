@@ -472,9 +472,6 @@ namespace EnumerableTask
         /// </example>
         public int GetCountOfStringsWithLengthEqualsTo3(IEnumerable<string> data) 
         {
-            var dataList = new List<string>(data);
-            var dataSet = new HashSet<string>();
-            
 
             if (!data.Any())
             {

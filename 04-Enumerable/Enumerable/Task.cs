@@ -132,55 +132,27 @@ namespace EnumerableTask
         ///  { "a","b","c", null }, prefix=""   => { "a","b","c" }
         ///  { "a","b","c" }, prefix=null => exception
         /// </example>
-        public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix) {
+        public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix) 
+        {
 
-            var listOfStrings = new List<string>();
+            
 
             if (prefix == null)
             {
                 throw new ArgumentNullException();
             }
 
-            //if (prefix.Equals(string.Empty))
-            //{
-            // foreach (var item in data)
-            // {
-            // listOfStrings.Add(item);
-            // listOfStrings.Remove(string.Empty);
-            // listOfStrings.Remove(null);
-            // }
-
-
-            //}
-
-
-
-            foreach (var item in data)
+            if (prefix == string.Empty)
             {
-                if (String.IsNullOrEmpty(prefix))
-                {
-                    listOfStrings.Add(item);
-                    listOfStrings.Remove(string.Empty);
-                }
-                else if (item == null)
-                {
-                    continue;
-                }
-                else if (item.StartsWith(prefix.ToUpper()) || item.StartsWith(prefix.ToLower()))
-                {
-
-                    listOfStrings.Add(item);
-
-                }
-                else if (!item.StartsWith(prefix.ToUpper()) || !item.StartsWith(prefix.ToLower()))
-                {
-                    return Enumerable.Empty<string>();
-                }
-
-
+                return Enumerable.Empty<string>();
             }
-            //TODO: this
-            return listOfStrings;
+            
+            var filtered = from item in data
+                           where item.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase) && !item.Equals(null)
+                           select item;
+
+            
+            return filtered;
         }
 
         /// <summary> Returns every second item from source sequence</summary>
@@ -503,7 +475,7 @@ namespace EnumerableTask
             var tupleSet = new HashSet<Tuple<string, int>>();
             
             
-            if (dataList == null)
+            if (data == null)
             {
                 return null;
             }
@@ -769,7 +741,7 @@ namespace EnumerableTask
         /// </example>
         public int GetSumOfAllInts(object[] data) 
         {
-            //ArrayList dataList = new ArrayList(data);
+            
             if (data == null)
             {
                 return 0;
@@ -778,15 +750,9 @@ namespace EnumerableTask
             var newList = from item in data
                           select item.ToString();
 
-            List<int> listOfInts = new List<int>();
-
-            foreach (var item in newList)
-            {
-                if (item.Any(x => Char.IsDigit(x)))
-                {
-                    listOfInts.Add(Int32.Parse(item));
-                }
-            }
+            List<int> listOfInts = (from item in newList
+                                    where item.Any(x => Char.IsDigit(x))
+                                    select Int32.Parse(item)).ToList();
 
             return listOfInts.Sum();
         }
@@ -805,32 +771,35 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<string> GetStringsOnly(object[] data) 
         {
-            if (data == null)
-            {
-                return Enumerable.Empty<string>();
+            throw new NotImplementedException();
+            //if (data == null)
+            //{
+            //    return Enumerable.Empty<string>();
 
-            }
+            //}
 
-            var newList = from items in data
-                          select items?.ToString();
+            //var newList = from items in data
+            //              select items?.ToString();
 
-            List<string> listOfStrings = new List<string>();
+            //List<string> listOfStrings = new List<string>();
 
-            foreach (var item in newList)
-            {
-                if (item == null || item == "True" || item == "False")
-                {
-                    continue;
-                }
+            //var secondList = from item in newList
+            //                 where item != null && item != "True" && item != "False"
 
-                if (item.Any(x => Char.IsLetter(x)) || item.Any(x => Char.IsNumber(x)))
-                {
-                    listOfStrings.Add(item);
-                }
+
+            //foreach (var item in newList)
+            //{
                 
-            }
 
-            return listOfStrings;
+            //    if (item.Any(x => Char.IsLetter(x)) || item.Any(x => Char.IsNumber(x)))
+            //    {
+            //        listOfStrings.Add(item);
+            //    }
+
+            //}
+
+            //return listOfStrings;
+
         }
 
         /// <summary> Calculates the total length of strings</summary>
@@ -864,7 +833,7 @@ namespace EnumerableTask
         ///   { } => false
         /// </example>
         public bool IsSequenceHasNulls(IEnumerable<string> data) {
-            // TODO : Implement IsSequenceHasNulls
+
             throw new NotImplementedException();
         }
 

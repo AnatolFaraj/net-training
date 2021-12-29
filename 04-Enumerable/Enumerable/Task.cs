@@ -93,8 +93,15 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<long> GetSquareSequence(IEnumerable<int> data) 
         {
-            //TODO: this
-            throw new NotImplementedException();
+            var listOfLongs = new List<long>();
+
+            foreach (var item in data)
+            {
+                long converted = Convert.ToInt64(item);
+                listOfLongs.Add(converted * converted);
+            }
+
+            return listOfLongs;
 
         }
 
@@ -800,8 +807,9 @@ namespace EnumerableTask
         ///   {"a","aa","aaa"} => {"a"}
         ///   {"ab","ba","aabb","baba"} => {"a","b"}
         /// </example>
-        public IEnumerable<char> GetCommonChars(IEnumerable<string> data) {
-            // TODO : Implement GetCommonChars
+        public IEnumerable<char> GetCommonChars(IEnumerable<string> data) 
+        {
+            //List<char> charList = data.All(i => i.);
             throw new NotImplementedException();
         }
 
@@ -816,9 +824,28 @@ namespace EnumerableTask
         ///    { 10, "ten", 10 } => 20 
         ///    { } => 0
         /// </example>
-        public int GetSumOfAllInts(object[] data) {
-            // TODO : Implement GetSumOfAllInts
-            throw new NotImplementedException();
+        public int GetSumOfAllInts(object[] data) 
+        {
+            //ArrayList dataList = new ArrayList(data);
+            if (data == null)
+            {
+                return 0;
+            }
+
+            var newList = from item in data
+                          select item.ToString();
+
+            List<int> listOfInts = new List<int>();
+
+            foreach (var item in newList)
+            {
+                if (item.Any(x => Char.IsDigit(x)))
+                {
+                    listOfInts.Add(Int32.Parse(item));
+                }
+            }
+
+            return listOfInts.Sum();
         }
 
 

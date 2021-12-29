@@ -26,25 +26,11 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<string> GetUppercaseStrings(IEnumerable<string> data) 
         {
+            
+            var UpperStringsList = from item in data
+                                   select item?.ToUpper();
 
-            var upperstrings = new List<string>();
-
-
-            foreach (var item in data)
-            {
-                if (String.IsNullOrEmpty(item) || String.IsNullOrWhiteSpace(item))
-                {
-                    upperstrings.Add(item);
-                }
-                else
-                {
-                    upperstrings.Add(item.ToUpper());
-                }
-
-
-
-            }
-            return upperstrings;
+            return UpperStringsList;
         }
 
         /// <summary> Transforms an each string from sequence to its length</summary>
@@ -860,9 +846,34 @@ namespace EnumerableTask
         ///   { 1,2,3, true, false } => { }
         ///   { } => { }
         /// </example>
-        public IEnumerable<string> GetStringsOnly(object[] data) {
-            // TODO : Implement GetStringsOnly
-            throw new NotImplementedException();
+        public IEnumerable<string> GetStringsOnly(object[] data) 
+        {
+            if (data == null)
+            {
+                return Enumerable.Empty<string>();
+
+            }
+
+            var newList = from items in data
+                          select items?.ToString();
+
+            List<string> listOfStrings = new List<string>();
+
+            foreach (var item in newList)
+            {
+                if (item == null || item == "True" || item == "False")
+                {
+                    continue;
+                }
+
+                if (item.Any(x => Char.IsLetter(x)) || item.Any(x => Char.IsNumber(x)))
+                {
+                    listOfStrings.Add(item);
+                }
+                
+            }
+
+            return listOfStrings;
         }
 
         /// <summary> Calculates the total length of strings</summary>

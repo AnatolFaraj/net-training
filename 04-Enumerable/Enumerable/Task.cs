@@ -43,7 +43,7 @@ namespace EnumerableTask
         ///   {"a","aa","aaa" } => { 1, 2, 3 }
         ///   {"aa","bb","cc", "", "  ", null } => { 2, 2, 2, 0, 2, 0 }
         /// </example>
-        public IEnumerable<int> GetStringsLength(IEnumerable<string> data) 
+        public IEnumerable<int> GetStringsLength(IEnumerable<string> data)
         {
 
             var listOfInts = new List<int>();
@@ -63,8 +63,8 @@ namespace EnumerableTask
                 }
 
             }
-
             return listOfInts;
+
         }
 
         /// <summary>Transforms int sequence to its square sequence, f(x) = x * x </summary>
@@ -79,15 +79,10 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<long> GetSquareSequence(IEnumerable<int> data) 
         {
-            var listOfLongs = new List<long>();
-
-            foreach (var item in data)
-            {
-                long converted = Convert.ToInt64(item);
-                listOfLongs.Add(converted * converted);
-            }
-
-            return listOfLongs;
+            return
+                    (from item in data
+                    let converted = Convert.ToInt64(item)
+                    select converted * converted).ToList();
 
         }
 
@@ -109,14 +104,9 @@ namespace EnumerableTask
         public IEnumerable<long> GetMovingSumSequence(IEnumerable<int> data) 
         {
 
-            var listOfLongs = new List<long>();
-
-            foreach (var item in data)
-            {
-                long converted = Convert.ToInt64(item);
-                listOfLongs.Add(converted);
-
-            }
+            var listOfLongs = (from item in data
+                               let converted = Convert.ToInt64(item)
+                               select converted).ToList();
 
             for (var i = 1; i < listOfLongs.Count; i++)
             {
@@ -213,6 +203,7 @@ namespace EnumerableTask
                 return Enumerable.Empty<T>();
             }
 
+
             for (int i = 0; i < dataList.Count; i++)
             {
                 if (i % 2 != 0)
@@ -292,7 +283,7 @@ namespace EnumerableTask
             char[] arrayOfChars;
             HashSet<char> setOfChars = new HashSet<char>();
 
-            if (listOfStrings.Count == 0)
+            if (!data.Any())
             {
                 return Enumerable.Empty<char>();
             }
@@ -337,24 +328,24 @@ namespace EnumerableTask
         /// </example>
         public string GetStringOfSequence<T>(IEnumerable<T> data) 
         {
-            var listOfItems = new List<T>(data);
+            //var listOfItems = new List<T>(data);
             
             string nullString = "null";
 
-            if (listOfItems == null)
+            if (!data.Any())
             {
                 return "";
             }
 
 
-            var output = String.Join<T>(','.ToString(), listOfItems);
+            var output = String.Join<T>(','.ToString(), data);
 
-            foreach (var item in listOfItems)
+            foreach (var item in data)
             {
                 if (item == null)
                 {
 
-                    output = String.Concat(String.Join<T>(','.ToString(), listOfItems), nullString);
+                    output = String.Concat(String.Join<T>(','.ToString(), data), nullString);
 
                 }
             }
@@ -378,33 +369,15 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<int> Get3TopItems(IEnumerable<int> data) 
         {
-            var listOfInts = new List<int>(data);
 
-            var returnList = new List<int>();
-
-            if (listOfInts.Count == 0)
+            if (!data.Any())
             {
                 return Enumerable.Empty<int>();
             }
-            else if (listOfInts.Count == 2)
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    returnList.Add(listOfInts.Max());
-                    listOfInts.Remove(listOfInts.Max());
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    returnList.Add(listOfInts.Max());
-                    listOfInts.Remove(listOfInts.Max());
-                }
-            }
-            
 
-            return returnList;
+            var sequenceOfLargestInts = data.OrderByDescending(x => x).Take(3);
+            
+            return sequenceOfLargestInts;
         }
 
         /// <summary> Calculates the count of numbers that are greater then 10</summary>

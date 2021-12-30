@@ -260,29 +260,16 @@ namespace EnumerableTask
         /// </example>
         public string GetStringOfSequence<T>(IEnumerable<T> data) 
         {
-            //var listOfItems = new List<T>(data);
-            
-            string nullString = "null";
 
             if (!data.Any())
             {
                 return "";
             }
 
+            var list = data.Select(x => x != null ? x.ToString() : "null");
 
-            var output = String.Join<T>(','.ToString(), data);
-
-            foreach (var item in data)
-            {
-                if (item == null)
-                {
-
-                    output = String.Concat(String.Join<T>(','.ToString(), data), nullString);
-
-                }
-            }
+            return String.Join(','.ToString(), list);
             
-            return output;
         }
 
         

@@ -26,11 +26,8 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<string> GetUppercaseStrings(IEnumerable<string> data) 
         {
-            
-            var UpperStringsList = from item in data
-                                   select item?.ToUpper();
 
-            return UpperStringsList;
+            return data.Select(x => x?.ToUpper()).ToList();
         }
 
         /// <summary> Transforms an each string from sequence to its length</summary>
@@ -46,24 +43,7 @@ namespace EnumerableTask
         public IEnumerable<int> GetStringsLength(IEnumerable<string> data)
         {
 
-            var listOfInts = new List<int>();
-            foreach (var item in data)
-            {
-                if (String.IsNullOrEmpty(item))
-                {
-                    listOfInts.Add(0);
-                }
-                else if (item == " " || item == " " || item == " ")
-                {
-                    listOfInts.Add(item.Length);
-                }
-                else
-                {
-                    listOfInts.Add(item.Length);
-                }
-
-            }
-            return listOfInts;
+            return data.Select(x => (x == null ? string.Empty : x).ToCharArray().Length).ToList();
 
         }
 
@@ -79,11 +59,7 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<long> GetSquareSequence(IEnumerable<int> data) 
         {
-            return
-                    (from item in data
-                    let converted = Convert.ToInt64(item)
-                    select converted * converted).ToList();
-
+            return data.Select(x => (Convert.ToInt64(x)) * (Convert.ToInt64(x))).ToList();
         }
 
         /// <summary>Transforms int sequence to its moving sum sequence, 
@@ -104,10 +80,8 @@ namespace EnumerableTask
         public IEnumerable<long> GetMovingSumSequence(IEnumerable<int> data) 
         {
 
-            var listOfLongs = (from item in data
-                               let converted = Convert.ToInt64(item)
-                               select converted).ToList();
-
+            var listOfLongs = data.Select(x => Convert.ToInt64(x)).ToList();
+                
             for (var i = 1; i < listOfLongs.Count; i++)
             {
                 listOfLongs[i] = listOfLongs[i - 1] + listOfLongs[i];
@@ -132,10 +106,8 @@ namespace EnumerableTask
         ///  { "a","b","c", null }, prefix=""   => { "a","b","c" }
         ///  { "a","b","c" }, prefix=null => exception
         /// </example>
-        public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix) 
+        public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix)
         {
-
-            
 
             if (prefix == null)
             {
@@ -144,14 +116,16 @@ namespace EnumerableTask
 
             if (prefix == string.Empty)
             {
-                return Enumerable.Empty<string>();
+                return data;
             }
-            
-            var filtered = from item in data
-                           where item.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase) && !item.Equals(null)
-                           select item;
 
             
+            
+          
+            var filtered = data.Where(x => x.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
+                               .ToList();
+
+            // пока не понял как игнорировать нули 
             return filtered;
         }
 
@@ -175,6 +149,7 @@ namespace EnumerableTask
                 return Enumerable.Empty<T>();
             }
 
+            
 
             for (int i = 0; i < dataList.Count; i++)
             {
@@ -225,7 +200,7 @@ namespace EnumerableTask
             //    newEnumerable = Enumerable.Repeat(item, itemIndex);
             //}
 
-
+          
 
 
             throw new NotImplementedException();
@@ -251,37 +226,22 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<char> GetUsedChars(IEnumerable<string> data) 
         {
-            var listOfStrings = new List<string>(data);
-            char[] arrayOfChars;
-            HashSet<char> setOfChars = new HashSet<char>();
 
             if (!data.Any())
             {
                 return Enumerable.Empty<char>();
             }
 
-            foreach (var item in listOfStrings)
+            foreach (var item in data)
             {
                 if (String.IsNullOrEmpty(item))
                 {
                     return Enumerable.Empty<char>();
                 }
-                
-                arrayOfChars = item.ToCharArray();
-
-                foreach (char ch in arrayOfChars)
-                {
-                    if (ch.Equals(string.Empty))
-                    {
-                        return new char[0];
-                    }
-
-                    setOfChars.Add(ch);
-                }
 
             }
 
-            return setOfChars;
+            return data.SelectMany(x => x.ToCharArray()).Where(x => x != null).Distinct();
 
         }
 
@@ -347,9 +307,7 @@ namespace EnumerableTask
                 return Enumerable.Empty<int>();
             }
 
-            var sequenceOfLargestInts = data.OrderByDescending(x => x).Take(3);
-            
-            return sequenceOfLargestInts;
+            return data.OrderByDescending(x => x).Take(3);
         }
 
         /// <summary> Calculates the count of numbers that are greater then 10</summary>
@@ -366,18 +324,12 @@ namespace EnumerableTask
         public int GetCountOfGreaterThen10(IEnumerable<int> data) 
         {
 
-            int count = 0;
-
             if (!data.Any())
             {
-                return count;
+                return 0;
             }
 
-            count += (from item in data
-                      where item > 10
-                      select item).Count();
-
-            return count;
+            return data.Where(x => x > 10).Count();
         }
 
 
@@ -393,37 +345,14 @@ namespace EnumerableTask
         /// </example>
         public string GetFirstContainsFirst(IEnumerable<string> data) 
         {
-            //var dataList = new List<string>(data);
-            //var returnList = new List<string>();
-            //var wordForSearch = "first";
+            
+            if (data == null)
+            {
+                return null;
+            }
 
-
-
-            //foreach (var item in dataList)
-            //{
-
-            //    if (item == null)
-            //    {
-            //        continue;
-            //    }
-            //    else if (item.IndexOf(wordForSearch, StringComparison.OrdinalIgnoreCase) >= 1)
-            //    {
-            //        returnList.Add(item);
-
-            //    }
-            //    else if (dataList == null)
-            //    {
-            //        return null;
-            //    }
-            //    else
-            //    {
-            //        return null;
-            //    }
-
-            //}
-
-            //return returnList[0];
-            throw new NotImplementedException();
+            return data.FirstOrDefault(x => x?.IndexOf("first", StringComparison.OrdinalIgnoreCase) >= 1);
+            
         }
         
         
@@ -450,12 +379,7 @@ namespace EnumerableTask
                 return 0;
             }
 
-            var set = from item in data
-                      where item?.Length == 3 
-                      select item;
-            
-
-            return set.Distinct().Count();
+            return data.Where(x => x?.Length == 3).Distinct().Count();
         }
 
         /// <summary> Counts the number of each strings in sequence </summary>
@@ -472,21 +396,22 @@ namespace EnumerableTask
         public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) 
         {
             var dataList = new List<string>(data);
-            var tupleSet = new HashSet<Tuple<string, int>>();
+            var tupleList = new List<Tuple<string, int>>();
             
             
             if (data == null)
             {
                 return null;
             }
+
             foreach (var item in dataList)
             {
                 
                 int freq = dataList.Count(f => (f == item));
-                tupleSet.Add(Tuple.Create(item, freq));
+                tupleList.Add(Tuple.Create(item, freq));
             }
 
-            return tupleSet;
+            return tupleList.Distinct();
         }
 
         /// <summary> Counts the number of strings with max length in sequence </summary>
@@ -542,7 +467,6 @@ namespace EnumerableTask
         /// </example>
         public int GetDigitCharsCount(string data) 
         {
-            
 
             if (data is null)
             {
@@ -554,13 +478,9 @@ namespace EnumerableTask
                 return 0;
             }
 
+            return data.Count(x => Char.IsDigit(x));
 
-            int count = data.Count(x => Char.IsDigit(x));
 
-
-            return count;
-
-            
         }
 
 
@@ -627,10 +547,7 @@ namespace EnumerableTask
                 return Enumerable.Empty<string>();
             }
 
-            var sortedStrings = data.OrderBy(w => w.Length)
-                                    .ThenBy(s => s);
-
-            return sortedStrings;
+            return data.OrderBy(w => w.Length).ThenBy(s => s);
 
 
         }

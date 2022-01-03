@@ -176,40 +176,35 @@ namespace EnumerableTask
         ///   { "a", "b", "c", null } => { "a", "b","b", "c","c","c", null,null,null,null }
         ///   { 1,2,3,4,5} => { 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 }
         /// </example>
-        public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data) 
+        public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data)
         {
             var dataList = new List<T>(data);
-            //int itemIndex = 0;
-            //var newList = new List<T>();
-            //IEnumerable<T> newEnumerable = new List<T>();
+            var returnList = new List<T>();
 
-            //if (dataList.Count == 1)
-            //{
-            //    return dataList;
-            //}
+            var counter = 0;
+            int increment = 1;
 
-            //if (data == null)
-            //{
-            //    return Enumerable.Empty<T>();
-            //}
+            if (dataList == null)
+            {
+                return Enumerable.Empty<T>();
+            }
 
-            //var listOfPropagations = data.Where((item, index) => Enumerable.Repeat(item, index));
-            //foreach (var item in dataList)
-            //{
-            //    itemIndex = dataList.IndexOf(item);
-            //    newEnumerable = Enumerable.Repeat(item, itemIndex);
-            //}
+            if (dataList.Count == 1)
+            {
+                return new List<T>(dataList);
+                
+            }
 
-          
-
-
-            throw new NotImplementedException();
-
-
-
-
-
-            //return newEnumerable;
+            for (int i = 0; i < dataList.Count; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    dataList.Add(dataList[i]);
+                }
+                
+            }
+            
+            return returnList;
         }
 
         /// <summary>Finds all used char in string sequence</summary>

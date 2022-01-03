@@ -109,23 +109,22 @@ namespace EnumerableTask
         public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix)
         {
 
-            if (prefix == null)
-            {
+            if(prefix == null)
+{
                 throw new ArgumentNullException();
             }
 
+
+
+            var filtered = data?.Where(x => x != null).Where(x => x.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
+            .ToList();
+
+
             if (prefix == string.Empty)
             {
-                return data;
+                return filtered.Where(x => x != null && x != string.Empty);
             }
 
-            
-            
-          
-            var filtered = data.Where(x => x.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
-                               .ToList();
-
-            // пока не понял как игнорировать нули 
             return filtered;
         }
 
@@ -178,33 +177,32 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data)
         {
-            var dataList = new List<T>(data);
-            var returnList = new List<T>();
-
-            var counter = 0;
-            int increment = 1;
-
-            if (dataList == null)
-            {
-                return Enumerable.Empty<T>();
-            }
-
-            if (dataList.Count == 1)
-            {
-                return new List<T>(dataList);
-                
-            }
-
-            for (int i = 0; i < dataList.Count; i++)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    dataList.Add(dataList[i]);
-                }
-                
-            }
+            //var dataList = new List<T>(data);
             
-            return returnList;
+
+            //if (data == null)
+            //{
+            //    return Enumerable.Empty<T>();
+            //}
+
+            //if (dataList.Count == 1)
+            //{
+            //    return new List<T>(dataList);
+
+            //}
+
+            //for (int i = 1; i < dataList.Count; i++)
+            //{
+            //    dataList.Select(x => Enumerable.Repeat<T>(x, i)).ToList();
+            //}
+            
+
+
+
+
+            //return dataList;
+            
+            throw new NotImplementedException();
         }
 
         /// <summary>Finds all used char in string sequence</summary>
@@ -377,23 +375,14 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) 
         {
-            var dataList = new List<string>(data);
-            var tupleList = new List<Tuple<string, int>>();
-            
-            
             if (data == null)
             {
                 return null;
             }
 
-            foreach (var item in dataList)
-            {
-                
-                int freq = dataList.Count(f => (f == item));
-                tupleList.Add(Tuple.Create(item, freq));
-            }
+            var g = data.GroupBy(x => x);
 
-            return tupleList.Distinct();
+            return g.Where(c => c != null).Select(c => new Tuple<string, int>(c.Key, c.Count()));
         }
 
         /// <summary> Counts the number of strings with max length in sequence </summary>
@@ -472,10 +461,16 @@ namespace EnumerableTask
         /// <returns>
         ///   Returns the number of System log entries of specified type
         /// </returns>
-        public int GetSpecificEventEntriesCount(EventLogEntryType value) {
-            // TODO : Implement GetSpecificEventEntriesCount
+        public int GetSpecificEventEntriesCount(EventLogEntryType value) 
+        {
+            
             EventLogEntryCollection systemEvents = (new EventLog("System", ".")).Entries;
+
+
             throw new NotImplementedException();
+
+            
+            
         }
 
 
@@ -623,7 +618,7 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<char> GetCommonChars(IEnumerable<string> data) 
         {
-            //List<char> charList = data.All(i => i.);
+            //return data.Where(x  = )
             throw new NotImplementedException();
         }
 
@@ -670,34 +665,9 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<string> GetStringsOnly(object[] data) 
         {
-            throw new NotImplementedException();
-            //if (data == null)
-            //{
-            //    return Enumerable.Empty<string>();
-
-            //}
-
-            //var newList = from items in data
-            //              select items?.ToString();
-
-            //List<string> listOfStrings = new List<string>();
-
-            //var secondList = from item in newList
-            //                 where item != null && item != "True" && item != "False"
-
-
-            //foreach (var item in newList)
-            //{
-                
-
-            //    if (item.Any(x => Char.IsLetter(x)) || item.Any(x => Char.IsNumber(x)))
-            //    {
-            //        listOfStrings.Add(item);
-            //    }
-
-            //}
-
-            //return listOfStrings;
+            
+            return data.OfType<string>();
+            
 
         }
 
@@ -714,9 +684,15 @@ namespace EnumerableTask
         ///   { null } => 0
         ///   { } => 0
         /// </example>
-        public int GetTotalStringsLength(IEnumerable<string> data) {
-            // TODO : Implement GetTotalStringsLength
-            throw new NotImplementedException();
+        public int GetTotalStringsLength(IEnumerable<string> data) 
+        {
+            if (data == null)
+            {
+                return 0;
+            }
+
+
+            return data.Where(x => x != null).Sum(x => x.Length);
         }
 
         /// <summary> Determines whether sequence has null elements</summary>

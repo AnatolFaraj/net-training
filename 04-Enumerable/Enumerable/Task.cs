@@ -707,9 +707,10 @@ namespace EnumerableTask
         ///   { null, null, null } => true
         ///   { } => false
         /// </example>
-        public bool IsSequenceHasNulls(IEnumerable<string> data) {
+        public bool IsSequenceHasNulls(IEnumerable<string> data) 
+        {
 
-            throw new NotImplementedException();
+            return data.Contains(null);
         }
 
         /// <summary> Determines whether all strings in sequence are uppercase</summary>
@@ -723,9 +724,15 @@ namespace EnumerableTask
         ///   { "" } => false
         ///   { } => false
         /// </example>
-        public bool IsAllStringsAreUppercase(IEnumerable<string> data) {
-            // TODO : Implement IsAllStringsAreUppercase
-            throw new NotImplementedException();
+        public bool IsAllStringsAreUppercase(IEnumerable<string> data) 
+        {
+            if (!data.Any() || data.Contains(string.Empty))
+            {
+                return false;
+            }
+
+
+            return data.All(x => x == x.ToUpper());
         }
 
         /// <summary> Finds first subsequence of negative integers </summary>
@@ -741,16 +748,17 @@ namespace EnumerableTask
         ///    { 1, 2, 3 } => { }
         ///    { } => { }
         /// </example>
-        public IEnumerable<int> GetFirstNegativeSubsequence(IEnumerable<int> data) {
-            // TODO : Implement GetFirstNegativeSubsequence
-            throw new NotImplementedException();
+        public IEnumerable<int> GetFirstNegativeSubsequence(IEnumerable<int> data) 
+        {
+            
+            return data.SkipWhile(x => x >= 0).TakeWhile(x => x < 0).ToList(); 
         }
 
 
         /// <summary> 
         /// Compares two numeric sequences
-        /// </summary>
-        /// <param name="integers">sequence of integers</param>
+        /// </summary>re4p[;h
+        /// '/// <param name="integers">sequence of integers</param>
         /// <param name="doubles">sequence of doubles</param>
         /// <returns>
         /// true if integers are equals doubles; otherwise, false.
@@ -761,9 +769,9 @@ namespace EnumerableTask
         /// { 3,2,1 } , { 1.0, 2.0, 3.0 } => false
         /// { -10 } => { -10.0 } => true
         /// </example>
-        public bool AreNumericListsEqual(IEnumerable<int> integers, IEnumerable<double> doubles) {
-            // TODO : Implement AreNumericListsEqual
-            throw new NotImplementedException();
+        public bool AreNumericListsEqual(IEnumerable<int> integers, IEnumerable<double> doubles) 
+        {
+            return integers.SequenceEqual(doubles.Select(x => Convert.ToInt32(x)));
         }
 
         /// <summary>
@@ -780,9 +788,9 @@ namespace EnumerableTask
         ///    { "1.1", "1.2", "1.5", "2.0" }, "1.4" => null
         ///    { "1.1", "1.2", "1.5", "2.0" }, "2.0" => null
         /// </example>
-        public string GetNextVersionFromList(IEnumerable<string> versions, string currentVersion) {
-            // TODO : Implement GetNextVersionFromList
-            throw new NotImplementedException();
+        public string GetNextVersionFromList(IEnumerable<string> versions, string currentVersion) 
+        {
+            return versions.SkipWhile(x => !x.Equals(currentVersion)).SkipWhile(x => x.Equals(currentVersion)).FirstOrDefault();
         }
 
         /// <summary>
@@ -799,7 +807,8 @@ namespace EnumerableTask
         ///   { 1, 1, 1 } + { -1, -1, -1 } => { 0, 0, 0 }
         /// </example>
         public IEnumerable<int> GetSumOfVectors(IEnumerable<int> vector1, IEnumerable<int> vector2) {
-            // TODO : Implement GetSumOfVectors
+
+
             throw new NotImplementedException();
         }
 
@@ -857,8 +866,9 @@ namespace EnumerableTask
         ///  { } => 0.0
         /// </example>
         public double GetAverageOfDoubleValues(IEnumerable<object> data) {
-            // TODO : Implement GetAverageOfDoubleValues
-            throw new NotImplementedException();
+
+           
+            return data.OfType<double>().DefaultIfEmpty().Average();
         }
 
     }

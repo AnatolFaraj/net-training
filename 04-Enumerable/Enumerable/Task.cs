@@ -114,18 +114,17 @@ namespace EnumerableTask
                 throw new ArgumentNullException();
             }
 
-            if (prefix == string.Empty)
-            {
-                return data;
-            }
 
             
-            
-          
-            var filtered = data.Where(x => x.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
+             var filtered = data?.Where(x => x != null).Where(x => x.StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
                                .ToList();
 
-            // пока не понял как игнорировать нули 
+
+            if (prefix == string.Empty)
+            {
+                return filtered.Where(x => x != null && x != string.Empty);
+            }
+
             return filtered;
         }
 
@@ -289,11 +288,6 @@ namespace EnumerableTask
         public IEnumerable<int> Get3TopItems(IEnumerable<int> data) 
         {
 
-            if (!data.Any())
-            {
-                return Enumerable.Empty<int>();
-            }
-
             return data.OrderByDescending(x => x).Take(3);
         }
 
@@ -311,10 +305,6 @@ namespace EnumerableTask
         public int GetCountOfGreaterThen10(IEnumerable<int> data) 
         {
 
-            if (!data.Any())
-            {
-                return 0;
-            }
 
             return data.Where(x => x > 10).Count();
         }
@@ -382,23 +372,15 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) 
         {
-            var dataList = new List<string>(data);
-            var tupleList = new List<Tuple<string, int>>();
-            
-            
+
             if (data == null)
             {
                 return null;
             }
 
-            foreach (var item in dataList)
-            {
-                
-                int freq = dataList.Count(f => (f == item));
-                tupleList.Add(Tuple.Create(item, freq));
-            }
-
-            return tupleList.Distinct();
+            var g = data.GroupBy(x => x);
+            
+            return g.Where(c => c != null).Select(c => new Tuple<string, int>(c.Key, c.Count()));
         }
 
         /// <summary> Counts the number of strings with max length in sequence </summary>
@@ -430,7 +412,7 @@ namespace EnumerableTask
                 return count + countNulls;
             }
 
-            
+
 
             return count;
 

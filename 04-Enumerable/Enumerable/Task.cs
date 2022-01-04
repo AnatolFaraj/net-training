@@ -618,8 +618,19 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<char> GetCommonChars(IEnumerable<string> data) 
         {
-            //return data.Where(x  = )
-            throw new NotImplementedException();
+            
+            if (!data.Any())
+            {
+                return Enumerable.Empty<char>();
+            }
+
+            var list2 = data.Where(x => x != null && x != string.Empty).Aggregate((x, y) => x.Intersect(y)).ToList();
+
+            
+
+
+            return list2;
+
         }
 
         /// <summary> Calculates sum of all integers from object array </summary>

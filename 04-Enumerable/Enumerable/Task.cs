@@ -618,18 +618,20 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<char> GetCommonChars(IEnumerable<string> data) 
         {
+
+            //if (!data.Any())
+            //{
+            //    return Enumerable.Empty<char>();
+            //}
+
+            //var list2 = data.Where(x => x != null && x != string.Empty).Select(x => x.ToList()).Aggregate((x, y) => x.Intersect(y)).ToList();
+
+            throw new NotImplementedException();
+
             
-            if (!data.Any())
-            {
-                return Enumerable.Empty<char>();
-            }
 
-            var list2 = data.Where(x => x != null && x != string.Empty).Aggregate((x, y) => x.Intersect(y)).ToList();
 
             
-
-
-            return list2;
 
         }
 

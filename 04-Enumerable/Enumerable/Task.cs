@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Globalization;
 
+
 namespace EnumerableTask 
 {
 
@@ -462,6 +463,9 @@ namespace EnumerableTask
         public int GetSpecificEventEntriesCount(EventLogEntryType value) {
             // TODO : Implement GetSpecificEventEntriesCount
             EventLogEntryCollection systemEvents = (new EventLog("System", ".")).Entries;
+            
+
+            
             throw new NotImplementedException();
         }
 
@@ -620,7 +624,8 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<char> GetCommonChars(IEnumerable<string> data) 
         {
-            //List<char> charList = data.All(i => i.);
+            //var chars = new List<char> { 'a', 'b', 'c' };
+            //return data.Where(x => x.All(c => c.ToString().Contains(chars.Any())));
             throw new NotImplementedException();
         }
 
@@ -808,8 +813,10 @@ namespace EnumerableTask
         ///   { 1, 1, 1 } + { -1, -1, -1 } => { 0, 0, 0 }
         /// </example>
         public IEnumerable<int> GetSumOfVectors(IEnumerable<int> vector1, IEnumerable<int> vector2) {
-            // TODO : Implement GetSumOfVectors
-            throw new NotImplementedException();
+
+
+            return vector1.Zip(vector2, (x, y) => x + y);
+            
         }
 
         /// <summary>
@@ -827,8 +834,8 @@ namespace EnumerableTask
         ///   { 1, 1, 1 } * { 0, 0, 0 } => 1*0 + 1*0 +1*0 = 0
         /// </example>
         public int GetProductOfVectors(IEnumerable<int> vector1, IEnumerable<int> vector2) {
-            // TODO : Implement GetProductOfVectors
-            throw new NotImplementedException();
+
+            return vector1.Zip(vector2, (x, y) => x * y).Sum();
         }
 
 
@@ -847,7 +854,9 @@ namespace EnumerableTask
         ///  { }, {"Alice"} => { }
         /// </example>
         public IEnumerable<string> GetAllPairs(IEnumerable<string> boys, IEnumerable<string> girls) {
-            // TODO : Implement GetAllPairs
+
+
+            //return boys.Where(x => x != null).Select(x => x.Zip(girls, (s, y) => s + "+" + y)).ToList();
             throw new NotImplementedException();
         }
 

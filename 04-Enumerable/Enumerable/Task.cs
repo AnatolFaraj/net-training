@@ -604,8 +604,9 @@ namespace EnumerableTask
         ///  { }, {"apple", "bananas" } => { }
         /// </example>
         public IEnumerable<string> CombineNumbersAndFruits(IEnumerable<string> numbers, IEnumerable<string> fruits) {
-            // TODO : Implement CombinesNumbersAndFruits
-            throw new NotImplementedException();
+
+            return numbers.Zip(fruits, (x, y) => x + " " + y);
+            //throw new NotImplementedException();
         }
 
 

@@ -478,7 +478,15 @@ namespace EnumerableTask
         ///    
         /// </example>
         public IEnumerable<string> GetIEnumerableTypesNames(Assembly assembly) {
-            // TODO : Implement GetIEnumerableTypesNames
+
+            //if (assembly == null)
+            //{
+            //    throw new ArgumentNullException();
+            //}
+
+            //var type = typeof(IEnumerable);
+            //return assembly.GetExportedTypes().Where(x => type.IsAssignableFrom(x)).Select(x => x.ToString()).ToList();
+
             throw new NotImplementedException();
         }
 
@@ -574,8 +582,10 @@ namespace EnumerableTask
         ///   {"one","one","one","zero"} => {"zero","one","one","one"}
         /// </example>
         public IEnumerable<string> SortDigitNamesByNumericOrder(IEnumerable<string> data) {
-            // TODO : Implement SortDigitNamesByNumericOrder
-            throw new NotImplementedException();
+
+            List<string> rightOrder = new List<string> { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+
+            return data.OrderBy(x => rightOrder.IndexOf(x));
         }
 
         /// <summary> Combines numbers and fruits </summary>
@@ -657,34 +667,7 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<string> GetStringsOnly(object[] data) 
         {
-            throw new NotImplementedException();
-            //if (data == null)
-            //{
-            //    return Enumerable.Empty<string>();
-
-            //}
-
-            //var newList = from items in data
-            //              select items?.ToString();
-
-            //List<string> listOfStrings = new List<string>();
-
-            //var secondList = from item in newList
-            //                 where item != null && item != "True" && item != "False"
-
-
-            //foreach (var item in newList)
-            //{
-                
-
-            //    if (item.Any(x => Char.IsLetter(x)) || item.Any(x => Char.IsNumber(x)))
-            //    {
-            //        listOfStrings.Add(item);
-            //    }
-
-            //}
-
-            //return listOfStrings;
+            return data.OfType<string>();
 
         }
 
@@ -702,8 +685,14 @@ namespace EnumerableTask
         ///   { } => 0
         /// </example>
         public int GetTotalStringsLength(IEnumerable<string> data) {
-            // TODO : Implement GetTotalStringsLength
-            throw new NotImplementedException();
+
+            if (data == null)
+            {
+                return 0;
+            }
+
+
+            return data.Where(x => x != null).Sum(x => x.Length);
         }
 
         /// <summary> Determines whether sequence has null elements</summary>
@@ -720,7 +709,7 @@ namespace EnumerableTask
         /// </example>
         public bool IsSequenceHasNulls(IEnumerable<string> data) {
 
-            throw new NotImplementedException();
+            return data.Contains(null);
         }
 
         /// <summary> Determines whether all strings in sequence are uppercase</summary>
@@ -735,8 +724,14 @@ namespace EnumerableTask
         ///   { } => false
         /// </example>
         public bool IsAllStringsAreUppercase(IEnumerable<string> data) {
-            // TODO : Implement IsAllStringsAreUppercase
-            throw new NotImplementedException();
+
+            if (!data.Any() || data.Contains(string.Empty))
+            {
+                return false;
+            }
+
+
+            return data.All(x => x == x.ToUpper());
         }
 
         /// <summary> Finds first subsequence of negative integers </summary>
@@ -753,8 +748,9 @@ namespace EnumerableTask
         ///    { } => { }
         /// </example>
         public IEnumerable<int> GetFirstNegativeSubsequence(IEnumerable<int> data) {
-            // TODO : Implement GetFirstNegativeSubsequence
-            throw new NotImplementedException();
+
+
+            return data.SkipWhile(x => x >= 0).TakeWhile(x => x < 0).ToList();
         }
 
 
@@ -773,8 +769,9 @@ namespace EnumerableTask
         /// { -10 } => { -10.0 } => true
         /// </example>
         public bool AreNumericListsEqual(IEnumerable<int> integers, IEnumerable<double> doubles) {
-            // TODO : Implement AreNumericListsEqual
-            throw new NotImplementedException();
+
+
+            return integers.SequenceEqual(doubles.Select(x => Convert.ToInt32(x)));
         }
 
         /// <summary>
@@ -792,8 +789,9 @@ namespace EnumerableTask
         ///    { "1.1", "1.2", "1.5", "2.0" }, "2.0" => null
         /// </example>
         public string GetNextVersionFromList(IEnumerable<string> versions, string currentVersion) {
-            // TODO : Implement GetNextVersionFromList
-            throw new NotImplementedException();
+
+
+            return versions.SkipWhile(x => !x.Equals(currentVersion)).SkipWhile(x => x.Equals(currentVersion)).FirstOrDefault();
         }
 
         /// <summary>
@@ -868,8 +866,8 @@ namespace EnumerableTask
         ///  { } => 0.0
         /// </example>
         public double GetAverageOfDoubleValues(IEnumerable<object> data) {
-            // TODO : Implement GetAverageOfDoubleValues
-            throw new NotImplementedException();
+
+            return data.OfType<double>().DefaultIfEmpty().Average();
         }
 
     }

@@ -368,21 +368,6 @@ namespace EnumerableTask
         public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) 
         {
 
-            var tupleList = new List<Tuple<string, int>>();
-            
-            
-            var tupleList = new List<Tuple<string, int>>();
-            
-            
-            var tupleList = new List<Tuple<string, int>>();
-            
-            
-            var tupleList = new List<Tuple<string, int>>();
-            
-            
-            var tupleList = new List<Tuple<string, int>>();
-            
-            
             if (data == null)
             {
                 return null;

@@ -110,8 +110,8 @@ namespace EnumerableTask
         public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix)
         {
 
-            if (prefix == null)
-            {
+            if(prefix == null)
+{
                 throw new ArgumentNullException();
             }
 
@@ -176,40 +176,34 @@ namespace EnumerableTask
         ///   { "a", "b", "c", null } => { "a", "b","b", "c","c","c", null,null,null,null }
         ///   { 1,2,3,4,5} => { 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 }
         /// </example>
-        public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data) 
+        public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data)
         {
-            var dataList = new List<T>(data);
-            //int itemIndex = 0;
-            //var newList = new List<T>();
-            //IEnumerable<T> newEnumerable = new List<T>();
-
-            //if (dataList.Count == 1)
-            //{
-            //    return dataList;
-            //}
+            //var dataList = new List<T>(data);
+            
 
             //if (data == null)
             //{
             //    return Enumerable.Empty<T>();
             //}
 
-            //var listOfPropagations = data.Where((item, index) => Enumerable.Repeat(item, index));
-            //foreach (var item in dataList)
+            //if (dataList.Count == 1)
             //{
-            //    itemIndex = dataList.IndexOf(item);
-            //    newEnumerable = Enumerable.Repeat(item, itemIndex);
+            //    return new List<T>(dataList);
+
             //}
 
-          
+            //for (int i = 1; i < dataList.Count; i++)
+            //{
+            //    dataList.Select(x => Enumerable.Repeat<T>(x, i)).ToList();
+            //}
+            
 
 
+
+
+            //return dataList;
+            
             throw new NotImplementedException();
-
-
-
-
-
-            //return newEnumerable;
         }
 
         /// <summary>Finds all used char in string sequence</summary>
@@ -374,6 +368,21 @@ namespace EnumerableTask
         public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) 
         {
 
+            var tupleList = new List<Tuple<string, int>>();
+            
+            
+            var tupleList = new List<Tuple<string, int>>();
+            
+            
+            var tupleList = new List<Tuple<string, int>>();
+            
+            
+            var tupleList = new List<Tuple<string, int>>();
+            
+            
+            var tupleList = new List<Tuple<string, int>>();
+            
+            
             if (data == null)
             {
                 return null;
@@ -460,13 +469,17 @@ namespace EnumerableTask
         /// <returns>
         ///   Returns the number of System log entries of specified type
         /// </returns>
-        public int GetSpecificEventEntriesCount(EventLogEntryType value) {
-            // TODO : Implement GetSpecificEventEntriesCount
+        public int GetSpecificEventEntriesCount(EventLogEntryType value) 
+        {
+            
             EventLogEntryCollection systemEvents = (new EventLog("System", ".")).Entries;
             
 
             
             throw new NotImplementedException();
+
+            
+            
         }
 
 
@@ -627,6 +640,12 @@ namespace EnumerableTask
             //var chars = new List<char> { 'a', 'b', 'c' };
             //return data.Where(x => x.All(c => c.ToString().Contains(chars.Any())));
             throw new NotImplementedException();
+
+            
+
+
+            
+
         }
 
         /// <summary> Calculates sum of all integers from object array </summary>
@@ -712,7 +731,8 @@ namespace EnumerableTask
         ///   { null, null, null } => true
         ///   { } => false
         /// </example>
-        public bool IsSequenceHasNulls(IEnumerable<string> data) {
+        public bool IsSequenceHasNulls(IEnumerable<string> data) 
+        {
 
             return data.Contains(null);
         }
@@ -761,8 +781,8 @@ namespace EnumerableTask
 
         /// <summary> 
         /// Compares two numeric sequences
-        /// </summary>
-        /// <param name="integers">sequence of integers</param>
+        /// </summary>re4p[;h
+        /// '/// <param name="integers">sequence of integers</param>
         /// <param name="doubles">sequence of doubles</param>
         /// <returns>
         /// true if integers are equals doubles; otherwise, false.

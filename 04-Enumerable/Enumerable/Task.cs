@@ -178,32 +178,35 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<T> PropagateItemsByPositionIndex<T>(IEnumerable<T> data)
         {
-            //var dataList = new List<T>(data);
-            
+            var dataList = new List<T>();
+            var newData = data.ToArray();
 
-            //if (data == null)
-            //{
-            //    return Enumerable.Empty<T>();
-            //}
+            if (data == null)
+            {
+                return Enumerable.Empty<T>();
+            }
 
-            //if (dataList.Count == 1)
-            //{
-            //    return new List<T>(dataList);
+            if (data.Count() == 1)
+            {
+                return data;
 
-            //}
+            }
 
-            //for (int i = 1; i < dataList.Count; i++)
-            //{
-            //    dataList.Select(x => Enumerable.Repeat<T>(x, i)).ToList();
-            //}
-            
+            for (int i = 0; i < data.Count(); i++)
+            {
+               for (int j = 0; j <= i; j++)
+               {
+                    dataList.Add(newData[i]);
+               }
+            }
 
 
 
 
-            //return dataList;
-            
-            throw new NotImplementedException();
+
+            return dataList;
+
+           
         }
 
         /// <summary>Finds all used char in string sequence</summary>
@@ -504,12 +507,23 @@ namespace EnumerableTask
         ///    {(1/1/2010, 10)  , (4/4/2010, 10), (10/10/2010, 10) } => { 10, 10, 0, 10 }
         /// </example>
         public int[] GetQuarterSales(IEnumerable<Tuple<DateTime, int>> sales) {
-            // TODO : Implement GetQuarterSales
-            throw new NotImplementedException();
+
+            var groupOfSales = sales.GroupBy(x => ((x.Item1.Date.Month -1)/ 3))
+                                    .Select(x => new { Quarter = x.Key, Sum = x.Sum(s => s.Item2) });
+
+            
+            var result = (from quarter in Enumerable.Range(0, 4)
+                          join sale in groupOfSales on quarter equals sale.Quarter into grouping
+                          from sale in grouping.DefaultIfEmpty()
+                          select new { Quarter = quarter, Sum = sale?.Sum ?? 0 }).ToList();
+
+            return result.Select(x => x.Sum).ToArray();
+
+
         }
 
 
-         /// <summary> Sorts string by length and alphabet </summary>
+        /// <summary> Sorts string by length and alphabet </summary>
         /// <param name="data">the source data</param>
         /// <returns>
         /// Returns sequence of strings sorted by length and alphabet
@@ -623,12 +637,15 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<char> GetCommonChars(IEnumerable<string> data) 
         {
-            //var chars = new List<char> { 'a', 'b', 'c' };
-            //return data.Where(x => x.All(c => c.ToString().Contains(chars.Any())));
-            throw new NotImplementedException();
-
+            if (data.Contains(string.Empty))
+            {
+                return Enumerable.Empty<char>();
+            }
+            return data.SelectMany(x => x.ToCharArray()).GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key);
             
 
+            
+            
 
             
 
@@ -861,11 +878,10 @@ namespace EnumerableTask
         /// </example>
         public IEnumerable<string> GetAllPairs(IEnumerable<string> boys, IEnumerable<string> girls) {
 
-
-            //return boys.Where(x => x != null).Select(x => x.Zip(girls, (s, y) => s + "+" + y)).ToList();
-            throw new NotImplementedException();
+            return boys.SelectMany(boy => girls.Select(girl => $"{boy}+{girl}")).ToList();
         }
 
+        
 
         /// <summary>
         ///   Calculates the average of all double values from object collection

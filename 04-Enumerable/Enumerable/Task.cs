@@ -371,14 +371,7 @@ namespace EnumerableTask
         public IEnumerable<Tuple<string,int>> GetCountOfStrings(IEnumerable<string> data) 
         {
 
-            if (data == null)
-            {
-                return null;
-            }
-
-            var g = data.GroupBy(x => x);
-            
-            return g.Where(c => c != null).Select(c => new Tuple<string, int>(c.Key, c.Count()));
+            return data?.GroupBy(x => x).Where(c => c != null).Select(c => new Tuple<string, int>(c.Key, c.Count()));
         }
 
         /// <summary> Counts the number of strings with max length in sequence </summary>

@@ -46,8 +46,25 @@ namespace IOStreams
 		/// <returns></returns>
 		public static string CalculateHash(this Stream stream, string hashAlgorithmName)
 		{
-			// TODO : Implement CalculateHash method
-			throw new NotImplementedException();
+			using (var algo = HashAlgorithm.Create(hashAlgorithmName))
+			{
+				if (algo == null)
+				{
+					throw new ArgumentException();
+				}
+
+				byte[] hashValue = algo.ComputeHash(stream);
+
+				var returnlist = new StringBuilder();
+
+				for (int i = 0; i < hashValue.Length; i++)
+				{
+					returnlist.Append($"{hashValue[i]:X2}");
+
+				}
+
+				return returnlist.ToString();
+			}
 		}
 
 
@@ -72,8 +89,11 @@ namespace IOStreams
 		/// <returns>Unicoded file content</returns>
 		public static string ReadEncodedText(string fileName, string encoding)
 		{
-			// TODO : Implement ReadEncodedText method
-			throw new NotImplementedException();
+			using (var str = new StreamReader(fileName, Encoding.GetEncoding(encoding)))
+			{
+				var content = str.ReadToEnd();
+				return content;
+			}
 		}
 	}
 

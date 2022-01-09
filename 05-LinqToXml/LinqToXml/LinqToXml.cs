@@ -87,7 +87,23 @@ namespace LinqToXml
             /// <returns>Xml customers representation (refer to XmlFromCsvResultFile.xml in Resources)</returns>
             public static string ReadCustomersFromCsv(string customers)
             {
-                
+                customers = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\XmlFromCsvSourceFile.csv";
+            var lines = File.ReadAllLines(customers);
+
+            var xml = new XElement("Root",
+                lines.Select(line => new XElement("Customer", new XAttribute("CustomerID", line.Split(',').First()),
+                                           new XElement("CompanyName", line.Split(',').ElementAt(1)),
+                                           new XElement("ContactName", line.Split(',').ElementAt(2)),
+                                           new XElement("ContactTitle", line.Split(',').ElementAt(3)),
+                                           new XElement("Phone", line.Split(',').ElementAt(4)),
+                                           new XElement("FullAddress",
+                                            new XElement("Address", line.Split(',').ElementAt(5)),
+                                            new XElement("City", line.Split(',').ElementAt(6)),
+                                            new XElement("Region", line.Split(',').ElementAt(7)),
+                                            new XElement("PostalCode", line.Split(',').ElementAt(8)),
+                                            new XElement("Country", line.Split(',').ElementAt(9))))));
+
+            return xml.ToString();
             }
 
             /// <summary>

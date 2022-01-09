@@ -35,8 +35,7 @@ namespace LinqToXml.Test
         [TestCategory("LinqToXml.GetConcatenationString")]
         public void GetConcatenationStringTest()
         {
-            var a = LinqToXml.GetConcatenationString(LinqToXmlResources.ConcatenationStringSource);
-            var b = LinqToXmlResources.ConcatenationStringResult;
+            
             Assert.AreEqual(LinqToXmlResources.ConcatenationStringResult, LinqToXml.GetConcatenationString(LinqToXmlResources.ConcatenationStringSource));
         }
 

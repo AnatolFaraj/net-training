@@ -16,15 +16,21 @@ namespace LinqToXml
         /// <returns>Xml representation (refer to CreateHierarchyResultFile.xml in Resources)</returns>
         public static string CreateHierarchy(string xmlRepresentation)
         {
+            xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\CreateHierarchyResultFile.xml";
+
             XDocument xdoc = XDocument.Load(xmlRepresentation);
-            //XElement root = xdoc.Element("Root").Elements("Data").Where(x => x.Element("Category"))
-            //xdoc.Root.Elements().Where(x => x.Element("Category").Value == "A").FirstOrDefault().Remove();
+
+            //xdoc.Descendants("Data").Elements("Category").Remove();
+            //xdoc.Element("Root").Element("TaxRate").Remove();
+            //xdoc.Element("Root").AddFirst(new XElement("Group", new XAttribute("ID", "A")));
+            //xdoc.Descendants("Root").Elements("Data").Where(x => x.Element("Quantity").Value == "1").FirstOrDefault().AddBeforeSelf(new XElement("Group", new XAttribute("ID", "B")));
+
 
             //xdoc.Save(xmlRepresentation);
 
 
 
-            throw new NotImplementedException();
+            return xdoc.ToString();
         }
 
 
@@ -118,7 +124,14 @@ namespace LinqToXml
             /// </example>
             public static string GetFlattenString(XElement xmlRepresentation)
             {
-                throw new NotImplementedException();
+            XDocument xdoc = new XDocument( new XElement(xmlRepresentation));
+
+
+            //xdoc.Save(@"G:\", SaveOptions.DisableFormatting);
+
+
+            return xdoc.ToString();
+
             }
 
             /// <summary>

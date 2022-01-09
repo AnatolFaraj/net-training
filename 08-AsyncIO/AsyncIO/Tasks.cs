@@ -20,11 +20,26 @@ namespace AsyncIO
         /// <returns>The sequence of downloaded url content</returns>
         public static IEnumerable<string> GetUrlContent(this IEnumerable<Uri> uris) 
         {
-            // TODO : Implement GetUrlContent
+            //lock(_lock)
+            //{
+            //    IEnumerable<byte[]> downloaded;
+            //    using (var client = new WebClient())
+            //    {
+            //        _ = client.UseDefaultCredentials == true;
+            //        downloaded = uris.Select(x => client.DownloadData(x));
+
+            //    }
+
+            //    var list = downloaded.Select(x => System.Text.Encoding.UTF8.GetString(x));
+
+
+            //    return list;
+            //}
+
             throw new NotImplementedException();
         }
 
-
+        //private static object _lock = new object();
 
         /// <summary>
         /// Returns the content of required uris.
@@ -52,7 +67,10 @@ namespace AsyncIO
         /// <returns>MD5 hash</returns>
         public static Task<string> GetMD5Async(this Uri resource)
         {
-            // TODO : Implement GetMD5Async
+            //using (var md5 = MD5.Create())
+            //{
+            //    using (var stream = )
+            //}
             throw new NotImplementedException();
         }
 

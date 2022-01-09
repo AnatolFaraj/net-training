@@ -16,17 +16,38 @@ namespace LinqToXml
         /// <returns>Xml representation (refer to CreateHierarchyResultFile.xml in Resources)</returns>
         public static string CreateHierarchy(string xmlRepresentation)
         {
-            xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\CreateHierarchyResultFile.xml";
+            xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\CreateHierarchySourceFile.xml";
 
             XDocument xdoc = XDocument.Load(xmlRepresentation);
 
-            //xdoc.Descendants("Data").Elements("Category").Remove();
-            //xdoc.Element("Root").Element("TaxRate").Remove();
-            //xdoc.Element("Root").AddFirst(new XElement("Group", new XAttribute("ID", "A")));
-            //xdoc.Descendants("Root").Elements("Data").Where(x => x.Element("Quantity").Value == "1").FirstOrDefault().AddBeforeSelf(new XElement("Group", new XAttribute("ID", "B")));
+            xdoc.Elements().Remove();
 
-
-            //xdoc.Save(xmlRepresentation);
+            xdoc.Add(
+                new XElement("Root",
+                            new XElement("Group", new XAttribute("ID", "A"),
+                                        new XElement("Data",
+                                             new XElement("Quantity", "3"),
+                                             new XElement("Price", "24.50" )),
+                                        new XElement("Data",
+                                             new XElement("Quantity", "5"),
+                                             new XElement("Price", "4.95")),
+                                        new XElement("Data",
+                                             new XElement("Quantity", "3"),
+                                             new XElement("Price", "66.00")),
+                                        new XElement("Data",
+                                             new XElement("Quantity", "15"),
+                                             new XElement("Price", "29.00"))),
+                            new XElement("Group", new XAttribute("ID", "B"),
+                                            new XElement("Data",
+                                             new XElement("Quantity", "1"),
+                                             new XElement("Price", "89.99")),
+                                        new XElement("Data",
+                                             new XElement("Quantity", "10"),
+                                             new XElement("Price", ".99")),
+                                        new XElement("Data",
+                                             new XElement("Quantity", "8"),
+                                             new XElement("Price", "6.99"))
+                                    )));
 
 
 
@@ -50,10 +71,8 @@ namespace LinqToXml
 
             XElement root = XElement.Load(xmlRepresentation);
             
-            var a = root.Elements(aw + "PurchaseOrder").Select(x => x.Element(aw + "Address")
-                                                       .Element(aw + "State"))
-                                                       .Where(x => x.Parent.Attribute(aw + "Type")
-                                                       .Value == "Shipping" && x.Value == "NY")
+            var a = root.Elements(aw + "PurchaseOrder").Select(x => x.Element(aw + "Address").Element(aw + "State"))
+                                                       .Where(x => x.Parent.Attribute(aw + "Type").Value == "Shipping" && x.Value == "NY")
                                                        .Select(x => x.Parent.Parent.Attribute(aw + "PurchaseOrderNumber").Value);
 
 
@@ -68,7 +87,7 @@ namespace LinqToXml
             /// <returns>Xml customers representation (refer to XmlFromCsvResultFile.xml in Resources)</returns>
             public static string ReadCustomersFromCsv(string customers)
             {
-                throw new NotImplementedException();
+                
             }
 
             /// <summary>

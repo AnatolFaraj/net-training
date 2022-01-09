@@ -165,7 +165,19 @@ namespace LinqToXml
             /// <returns>Sorted customers representation (refer to GeneralCustomersResultFile.xml in Resources)</returns>
             public static string SortCustomers(string xmlRepresentation)
             {
-                throw new NotImplementedException();
+            //xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\GeneralCustomersSourceFile.xml";
+            //var xdoc = XDocument.Load(xmlRepresentation).Descendants("Root")
+            //                                            .Elements("Customers")
+
+            //                                            .OrderBy(x => x.Element("FullAddress").Element("Country").Value).ThenBy(x => x.Element("FullAddress").Element("City").Value)
+            //                                            .SelectMany(x => x.Elements());
+
+
+            
+            //return xdoc.ToString();
+
+            //сортирует правильно, но не могу правильно вернуть файл
+            throw new NotImplementedException();
             }
 
             /// <summary>

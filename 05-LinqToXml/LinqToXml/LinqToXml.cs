@@ -130,14 +130,9 @@ namespace LinqToXml
             {
             xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\ReplaceCustomersWithContactsSource.xml";
 
-            //var xdoc = XDocument.Load(xmlRepresentation).Descendants("Document")
-            //                                            //.Elements("customer")
-            //                                            .Where(x => x.Element("customer"))
-
-            //                                            //.Select(x => x.Element("customer").Name == "contact");
+            //var xdoc = XElement.Load(xmlRepresentation);
 
 
-            //return xdoc.ToString();
             throw new NotImplementedException();
 
             }
@@ -149,16 +144,18 @@ namespace LinqToXml
             /// <returns>Sequence of channels ids</returns>
             public static IEnumerable<int> FindChannelsIds(string xmlRepresentation)
             {
-            //var comment = new XComment("DELETE");
-            //xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\FindAllChannelsIdsSource.xml";
-            //var xdoc = XDocument.Load(xmlRepresentation).Descendants("service")
-            //                                            .Elements("channel")
-            //                                            .Where(x => x.Elements("subsdcriber").Count() >= 2 && x.Elements("subscriber").)
-            //                                            ;
+            
+            xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\FindAllChannelsIdsSource.xml";
+            var xdoc = XDocument.Load(xmlRepresentation).Descendants("service")
+                                                        .Elements("channel")
+                                                        .Where(x => x.Elements("subscriber").Count() >= 2)
+                                                        .Where(x => x.Nodes().OfType<XComment>().Count() > 0)
+                                                        .Select(x => Convert.ToInt32(x.Attribute("id").Value));
+                                                       
 
 
-            //return xdoc;
-            throw new NotImplementedException();
+            return xdoc;
+            
             }
 
             /// <summary>

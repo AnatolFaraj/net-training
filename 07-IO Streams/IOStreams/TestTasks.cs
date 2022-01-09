@@ -59,8 +59,19 @@ namespace IOStreams
 		/// <returns>output stream</returns>
 		public static Stream DecompressStream(string fileName, DecompressionMethods method)
 		{
-			// TODO : Implement DecompressStream method
+			//HttpWebRequest request = (HttpWebRequest)WebRequest.Create(fileName);
+			//HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+			//using (Stream str = response.GetResponseStream())
+			//         {
+			//	using (StreamReader reader = new StreamReader(str))
+			//             {
+			//		request.AutomaticDecompression = method;
+			//		return str;
+			//	}
+			//         }
+
 			throw new NotImplementedException();
+			
 		}
 
 

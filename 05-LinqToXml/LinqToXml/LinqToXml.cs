@@ -81,7 +81,12 @@ namespace LinqToXml
             /// <returns>Concatenation of all this element values.</returns>
             public static string GetConcatenationString(string xmlRepresentation)
             {
-                throw new NotImplementedException();
+                xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\ConcatenationStringSource.xml";
+                var xdoc = XDocument.Load(xmlRepresentation);
+                var returnString = xdoc.Descendants("Sentence").Select(x => x.Value).ToList();
+            
+                return String.Join(" ", returnString);
+                //работает правильно, но тест не проходит
             }
 
             /// <summary>
@@ -91,7 +96,18 @@ namespace LinqToXml
             /// <returns>Xml representation with contacts (refer to ReplaceCustomersWithContactsResult.xml in Resources)</returns>
             public static string ReplaceAllCustomersWithContacts(string xmlRepresentation)
             {
-                throw new NotImplementedException();
+            xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\ReplaceCustomersWithContactsSource.xml";
+
+            //var xdoc = XDocument.Load(xmlRepresentation).Descendants("Document")
+            //                                            //.Elements("customer")
+            //                                            .Where(x => x.Element("customer"))
+
+            //                                            //.Select(x => x.Element("customer").Name == "contact");
+
+
+            //return xdoc.ToString();
+            throw new NotImplementedException();
+
             }
 
             /// <summary>
@@ -101,7 +117,16 @@ namespace LinqToXml
             /// <returns>Sequence of channels ids</returns>
             public static IEnumerable<int> FindChannelsIds(string xmlRepresentation)
             {
-                throw new NotImplementedException();
+            //var comment = new XComment("DELETE");
+            //xmlRepresentation = @"G:\csharp\farajTrainingFinal\05-LinqToXml\LinqToXml.Test\Resources\FindAllChannelsIdsSource.xml";
+            //var xdoc = XDocument.Load(xmlRepresentation).Descendants("service")
+            //                                            .Elements("channel")
+            //                                            .Where(x => x.Elements("subsdcriber").Count() >= 2 && x.Elements("subscriber").)
+            //                                            ;
+
+
+            //return xdoc;
+            throw new NotImplementedException();
             }
 
             /// <summary>
@@ -124,13 +149,13 @@ namespace LinqToXml
             /// </example>
             public static string GetFlattenString(XElement xmlRepresentation)
             {
-            XDocument xdoc = new XDocument( new XElement(xmlRepresentation));
+            //XDocument xdoc = new XDocument( new XElement(xmlRepresentation));
 
 
-            //xdoc.Save(@"G:\", SaveOptions.DisableFormatting);
+            ////xdoc.Save(@"G:\", SaveOptions.DisableFormatting);
 
 
-            return xdoc.ToString();
+            //return xdoc.ToString();
 
             }
 

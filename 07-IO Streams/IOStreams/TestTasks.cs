@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.IO.Packaging;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
@@ -34,6 +35,23 @@ namespace IOStreams
 			//         /xl/sharedStrings.xml      - dictionary of all string values
 			//         /xl/worksheets/sheet1.xml  - main worksheet
 
+			//string sourceFile = @"G:\csharp\farajTrainingFinal\07-IO Streams\IOStreams.Tests\Resources\Planets.xlsx.deflate"; // исходный файл
+			//string decompressedFile =  @"G:\decompressed.txt"; // распакованный файл
+
+			//using (FileStream sourceStream = new FileStream(sourceFile, FileMode.OpenOrCreate))
+			//{
+				
+			//	using (FileStream targetStream = File.Create(decompressedFile))
+			//	{
+					
+			//		using (DeflateStream decompressionStream = new DeflateStream(sourceStream, CompressionMode.Decompress))
+			//		{
+			//			decompressionStream.CopyTo(targetStream);
+						
+			//		}
+			//	}
+			//}
+
 			throw new NotImplementedException();
 		}
 
@@ -59,20 +77,22 @@ namespace IOStreams
 		/// <returns>output stream</returns>
 		public static Stream DecompressStream(string fileName, DecompressionMethods method)
 		{
-			//HttpWebRequest request = (HttpWebRequest)WebRequest.Create(fileName);
-			//HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-			//using (Stream str = response.GetResponseStream())
-			//         {
-			//	using (StreamReader reader = new StreamReader(str))
-			//             {
-			//		request.AutomaticDecompression = method;
-			//		return str;
-			//	}
-			//         }
+            //byte[] byteArray = Encoding.UTF8.GetBytes(fileName);
 
-			throw new NotImplementedException();
-			
-		}
+            //HttpClientHandler handler = new HttpClientHandler()
+            //{
+            //	AutomaticDecompression = method
+            //};
+
+            //using (var client = new HttpClient(handler))
+            //         {
+            //	using (var stream = new MemoryStream(byteArray))
+            //             {
+
+            //             }
+            //         }
+            throw new NotImplementedException();
+        }
 
 
 		/// <summary>

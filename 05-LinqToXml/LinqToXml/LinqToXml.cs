@@ -49,19 +49,16 @@ namespace LinqToXml
                 XNamespace aw = "http://www.adventure-works.com";
 
             XElement root = XElement.Load(xmlRepresentation);
-            IEnumerable<string> purchaseOrders =
-                from el in root.Elements(aw + "PurchaseOrder")
-                where
-                    (from add in el.Elements(aw + "Address")
-                     where
-                         (string)add.Attribute(aw + "Type") == "Shipping" &&
-                         (string)add.Element(aw + "State") == "NY"
-                     select add)
-                    .Any()
-                select el.Attribute(aw + "PurchaseOrderNumber").Value;
+            
+            var a = root.Elements(aw + "PurchaseOrder").Select(x => x.Element(aw + "Address")
+                                                       .Element(aw + "State"))
+                                                       .Where(x => x.Parent.Attribute(aw + "Type")
+                                                       .Value == "Shipping" && x.Value == "NY")
+                                                       .Select(x => x.Parent.Parent.Attribute(aw + "PurchaseOrderNumber").Value);
 
 
-            return String.Join(",", purchaseOrders);
+            return String.Join(",", a);
+            
             }
 
             /// <summary>
@@ -85,8 +82,8 @@ namespace LinqToXml
                 var xdoc = XDocument.Load(xmlRepresentation);
                 var returnString = xdoc.Descendants("Sentence").Select(x => x.Value).ToList();
             
-                return String.Join(" ", returnString);
-                //работает правильно, но тест не проходит
+                return String.Join("", returnString);
+                
             }
 
             /// <summary>
@@ -156,7 +153,7 @@ namespace LinqToXml
 
 
             //return xdoc.ToString();
-
+            throw new NotImplementedException();
             }
 
             /// <summary>

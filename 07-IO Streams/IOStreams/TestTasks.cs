@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.IO.Packaging;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
@@ -34,6 +35,8 @@ namespace IOStreams
 			//         /xl/sharedStrings.xml      - dictionary of all string values
 			//         /xl/worksheets/sheet1.xml  - main worksheet
 
+			
+
 			throw new NotImplementedException();
 		}
 
@@ -59,9 +62,9 @@ namespace IOStreams
 		/// <returns>output stream</returns>
 		public static Stream DecompressStream(string fileName, DecompressionMethods method)
 		{
-			// TODO : Implement DecompressStream method
-			throw new NotImplementedException();
-		}
+            
+            throw new NotImplementedException();
+        }
 
 
 		/// <summary>

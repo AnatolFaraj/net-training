@@ -20,11 +20,12 @@ namespace AsyncIO
         /// <returns>The sequence of downloaded url content</returns>
         public static IEnumerable<string> GetUrlContent(this IEnumerable<Uri> uris) 
         {
-            // TODO : Implement GetUrlContent
+            
+
             throw new NotImplementedException();
         }
 
-
+        
 
         /// <summary>
         /// Returns the content of required uris.
@@ -52,7 +53,7 @@ namespace AsyncIO
         /// <returns>MD5 hash</returns>
         public static Task<string> GetMD5Async(this Uri resource)
         {
-            // TODO : Implement GetMD5Async
+            
             throw new NotImplementedException();
         }
 
